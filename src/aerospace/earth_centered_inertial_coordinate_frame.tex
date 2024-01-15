@@ -1,0 +1,79 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{75}{119}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=4]
+        
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % sphere radius
+        \def\r{0.5}
+        
+        % axes lengths
+        \def\x{2.5*\r}    % x-axis
+        \def\y{2.25*\r}   % y-axis
+        \def\z{2*\r}      % z-axis
+        
+        % --------
+        % Drawing.
+        % --------
+        
+        % portions of basis vectors inside of sphere
+        \draw[thick](0,0,0)--(\r,0,0);
+        \draw[thick](0,0,0)--(0,\r,0);
+        \draw[thick](0,0,0)--(0,0,\r);
+        
+        % outside circle
+        \draw[tdplot_screen_coords,thin,black!30,fill=color_theme,opacity=0.1](0,0,0)circle(\r);
+        
+        % lines of latitude
+        \foreach \a in {-75,-60,...,75}{
+            \tdplotCsDrawLatCircle[thin,black!30]{\r}{\a}
+        }
+        
+        % lines of longitude
+        \foreach \a in {0,15,...,165}{
+            \tdplotCsDrawLonCircle[thin,black!30]{\r}{\a}
+        }
+        
+        % equatorial plane
+        \tdplotCsDrawLatCircle[thick,tdplotCsFill/.style={opacity=0.1}]{\r}{0};
+        \draw(0.75*\r,0.75*\r,0)--(0.15*\r,1.1*\r,-0.5*\r)node[pos=1.05,right,align=left,xshift=-3,yshift=-7]{equatorial\\plane};
+        
+        % coordinate axes outside of sphere
+        \draw(\r,0,0)--(\x,0,0)node[pos=1.15,align=center,yshift=-7]{$\vernal$\\(vernal equinox)};
+        \draw(0,\r,0)--(0,\y,0);
+        \draw(0,0,\r)--(0,0,\z);
+        
+        % portions of basis vectors outside of sphere
+        \draw[-mylatex',thick](\r,0,0)--(\r*1.5,0,0)node[pos=1.07,right,yshift=-5]{$\mathbf{\hat{I}}$};
+        \draw[-mylatex',thick](0,\r,0)--(0,\r*1.5,0)node[pos=1.05,above]{$\mathbf{\hat{J}}$};
+        \draw[-mylatex',thick](0,0,\r)--(0,0,\r*1.5)node[pos=1.05,right]{$\mathbf{\hat{K}}$};
+        
+    \end{tikzpicture}
+
+\end{document}

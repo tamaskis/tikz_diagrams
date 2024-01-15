@@ -1,0 +1,78 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/118069/how-to-draw-an-euler-angle-rotation-sequence-with-tikz
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{140}
+
+    % change rotation matrix to use 3-2-1 sequence
+    \tdseteulerxyz
+
+    % begin tikz environment
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % ---------------------
+        % Variable definitions.
+        % ---------------------
+        
+        % rotation angle [deg]
+        \pgfmathsetmacro{\zRot}{30}
+        
+        % -------
+        % Origin.
+        % -------
+        
+        \node[below,xshift=1,yshift=-1]at(0,0,0){$O$};
+        
+        % --------------------------
+        % Plane + angle of rotation.
+        % --------------------------
+        
+        % angle of rotation
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0,0)}{1.75}{0}{\zRot}{below,xshift=-6,yshift=3}{$\theta$}
+        
+        % plane of rotation
+        \draw[fill=color_theme,opacity=0.1](0,0)circle(1.75);
+        
+        % --------------------------
+        % Ox1x2x3 coordinate system.
+        % --------------------------
+        
+        % x1x2x3 axes
+        \draw[dotted,thick](0,0,0)--(3,0,0)node[pos=1.1]{$x_{1}$};
+        \draw[dotted,thick](0,0,0)--(0,3,0)node[pos=1.1]{$x_{2}$};
+        \draw[dotted,thick](0,0,0)--(0,0,3)node[pos=1.1]{$x_{3}$, $x_{3}'$};
+        
+        % -----------------------------
+        % Ox1'x2'x3' coordinate system.
+        % -----------------------------
+        
+        % rotates TikZ's coordinate system about 3rd axis
+        \tdplotsetrotatedcoords{\zRot}{0}{0}
+        
+        % x1'x2'x3' axes
+        \draw[tdplot_rotated_coords](0,0,0)--(3,0,0)node[pos=1.17]{$x_{1}'$};
+        \draw[tdplot_rotated_coords](0,0,0)--(0,3,0)node[pos=1.09]{$x_{2}'$};
+        \draw[tdplot_rotated_coords](0,0,0)--(0,0,3);
+
+    \end{tikzpicture}
+
+\end{document}

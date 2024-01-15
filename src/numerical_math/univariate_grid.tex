@@ -1,0 +1,58 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % node spacing
+        \pgfmathsetmacro{\s}{1.5}
+
+        % node radius
+        \pgfmathsetmacro{\r}{0.125}
+        
+        % base yshift for labels
+        \pgfmathsetmacro{\a}{6}
+        
+        % yshift
+        \pgfmathsetmacro{\b}{\a+1}
+
+        % --------
+        % Drawing.
+        % --------
+        
+        % x-axis
+        \draw(0,0)--(3*\s,0);
+        \node[align=center]at(4*\s,0){$\cdots$};
+        \draw(5*\s,0)--(7*\s,0)node[right]{$x$};
+        
+        % nodes
+        \draw[fill=shade_color,thick](1*\s,0)circle(\r)node[above,yshift=\b]{$x_{1}$};
+        \draw[fill=shade_color,thick](2*\s,0)circle(\r)node[above,yshift=\b]{$x_{2}$};
+        \draw[fill=shade_color,thick](6*\s,0)circle(\r)node[above,yshift=\b]{$x_{N}$};
+        
+    \end{tikzpicture}
+
+\end{document}

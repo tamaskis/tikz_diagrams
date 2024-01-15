@@ -1,0 +1,201 @@
+% References:
+%   [1] Pier Paolo's answer on https://tex.stackexchange.com/questions/386030/how-to-draw-orbital-elements
+%   [2] https://tex.stackexchange.com/questions/250719/drawing-a-shaded-hemisphere-using-tikz
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{110}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=4]
+        
+        % -----------------
+        % Orbital elements.
+        % -----------------
+        
+        \pgfmathsetmacro{\semimajoraxis}{1}     % semi-major axis [DU]
+        \pgfmathsetmacro{\eccentricity}{0.3}    % eccentricity [-]
+        \pgfmathsetmacro{\inclination}{40}      % inclination [deg]
+        \pgfmathsetmacro{\raan}{25}             % right ascension of ascending node [deg]
+        \pgfmathsetmacro{\argper}{80}           % argument of periapsis [deg]
+        \pgfmathsetmacro{\trueanomaly}{60}      % true anomaly [deg]
+
+        % -------------
+        % Calculations.
+        % -------------
+        
+        % eccentric anomaly [deg]
+        \pgfmathsetmacro{\eccentricanomaly}{2*atan(sqrt((1-\eccentricity)/(1+\eccentricity))*tan(\trueanomaly/2))}
+        
+        % position in perifocal frame [DU]
+        \pgfmathsetmacro{\rP}{\semimajoraxis*(cos(\eccentricanomaly)-\eccentricity)}
+        \pgfmathsetmacro{\rQ}{\semimajoraxis*sqrt(1-\eccentricity^2)*sin(\eccentricanomaly)}
+        \pgfmathsetmacro{\rW}{0}
+        
+        % velocity in perifocal frame (mean motion = 1) [DU/TU]
+        \pgfmathsetmacro{\coefficient}{(\semimajoraxis)/(1-\eccentricity*cos(\eccentricanomaly))}
+        \pgfmathsetmacro{\vP}{\coefficient*(-sin(\eccentricanomaly))}
+        \pgfmathsetmacro{\vQ}{\coefficient*sqrt(1-\eccentricity^2)*cos(\eccentricanomaly)}
+        \pgfmathsetmacro{\vW}{0}
+        
+        % position in ECI frame [DU]
+        \pgfmathsetmacro{\rI}{\rQ*(-cos(\raan)*sin(\argper)-cos(\inclination)*cos(\argper)*sin(\raan))+\rP*(cos(\argper)*cos(\raan)-cos(\inclination)*sin(\argper)*sin(\raan))}
+        \pgfmathsetmacro{\rJ}{\rP*(cos(\inclination)*cos(\raan)*sin(\argper)+cos(\argper)*sin(\raan))+\rQ*(cos(\inclination)*cos(\argper)*cos(\raan)-sin(\argper)*sin(\raan))}
+        \pgfmathsetmacro{\rK}{\rQ*cos(\argper)*sin(\inclination)+\rP*sin(\inclination)*sin(\argper)}
+        
+        % velocity in ECI frame [DU/TU]
+        \pgfmathsetmacro{\vI}{\vQ*(-cos(\raan)*sin(\argper)-cos(\inclination)*cos(\argper)*sin(\raan))+\vP*(cos(\argper)*cos(\raan)-cos(\inclination)*sin(\argper)*sin(\raan))}
+        \pgfmathsetmacro{\vJ}{\vP*(cos(\inclination)*cos(\raan)*sin(\argper)+cos(\argper)*sin(\raan))+\vQ*(cos(\inclination)*cos(\argper)*cos(\raan)-sin(\argper)*sin(\raan))}
+        \pgfmathsetmacro{\vK}{\vQ*cos(\argper)*sin(\inclination)+\vP*sin(\inclination)*sin(\argper)}
+        
+        % angular momentum vector in ECI frame [DU^2/TU]
+        \pgfmathsetmacro{\hIvec}{\rJ*\vK-\rK*\vJ}
+        \pgfmathsetmacro{\hJvec}{\rK*\vI-\rI*\vK}
+        \pgfmathsetmacro{\hKvec}{\rI*\vJ-\rJ*\vI}
+        
+        % normalizing ECI angular momentum vector for plotting
+        \pgfmathsetmacro{\hI}{\hIvec/sqrt((\hIvec)^2+(\hJvec)^2+(\hKvec)^2)}
+        \pgfmathsetmacro{\hJ}{\hJvec/sqrt((\hIvec)^2+(\hJvec)^2+(\hKvec)^2)}
+        \pgfmathsetmacro{\hK}{\hKvec/sqrt((\hIvec)^2+(\hJvec)^2+(\hKvec)^2)}
+        
+        % node vector
+        \pgfmathsetmacro{\nI}{-\hJ}
+        \pgfmathsetmacro{\nJ}{\hI}
+        \pgfmathsetmacro{\nK}{0}
+        
+        % semi-latus rectum [DU]
+        \pgfmathsetmacro{\semilatusrectum}{\semimajoraxis*(1-\eccentricity^2)}
+        
+        % eccentricity vector [-]
+        \pgfmathsetmacro{\rdotv}{\rI*\vI+\rJ*\vJ+\rK*\vK}
+        \pgfmathsetmacro{\rmag}{sqrt((\rI)^2+(\rJ)^2+(\rK)^2)}
+        \pgfmathsetmacro{\vmag}{sqrt((\vI)^2+(\vJ)^2+(\vK)^2)}
+        \pgfmathsetmacro{\eI}{((\vmag)^2-(1/\rmag))*\rI-\rdotv*\vI}
+        \pgfmathsetmacro{\eJ}{((\vmag)^2-(1/\rmag))*\rJ-\rdotv*\vJ}
+        \pgfmathsetmacro{\eK}{((\vmag)^2-(1/\rmag))*\rK-\rdotv*\vK}
+
+        % Q basis vector [-]
+        \pgfmathsetmacro{\QIvec}{\hJ*\eK-\hK*\eJ}
+        \pgfmathsetmacro{\QJvec}{\hK*\eI-\hI*\eK}
+        \pgfmathsetmacro{\QKvec}{\hI*\eJ-\hJ*\eI}
+        \pgfmathsetmacro{\QI}{\QIvec/sqrt((\QIvec)^2+(\QJvec)^2+(\QKvec)^2)}
+        \pgfmathsetmacro{\QJ}{\QJvec/sqrt((\QIvec)^2+(\QJvec)^2+(\QKvec)^2)}
+        \pgfmathsetmacro{\QK}{\QKvec/sqrt((\QIvec)^2+(\QJvec)^2+(\QKvec)^2)}
+        
+        % -------------------
+        % Drawing the planes.
+        % -------------------
+        
+        % portion of orbital plane below the equatorial plane (shaded)
+        \draw[fill=color_theme,opacity=0.25]plot[variable=\x,domain=(180-\argper):(360-\argper),samples=360]({sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(cos(\raan)*cos(\argper+\x)-sin(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(sin(\raan)*cos(\argper+\x)+cos(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*sin(\argper+\x)*sin(\inclination)});
+        
+        % portion of orbital plane below the equatorial plane (outline)
+        \draw[color_theme,thick]plot[variable=\x,domain=(180-\argper):(360-\argper),samples=360]({sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(cos(\raan)*cos(\argper+\x)-sin(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(sin(\raan)*cos(\argper+\x)+cos(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*sin(\argper+\x)*sin(\inclination)});
+        
+        % equatorial plane
+        \filldraw[draw=black,fill=gray!20,opacity=0.75](-1.1,-1,0)--(-1.1,1,0)--(1,1,0)--(1,-1,0)--cycle;
+        \node at (0.8*\semimajoraxis,-0.25*\semimajoraxis,0)[left,rotate=-7]{equatorial plane};
+        
+        % portion of orbital plane above the equatorial plane (shaded)
+        \draw[fill=color_theme,opacity=0.25]plot[variable=\x,domain=-\argper:(180-\argper),samples=360]({sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(cos(\raan)*cos(\argper+\x)-sin(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(sin(\raan)*cos(\argper+\x)+cos(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*sin(\argper+\x)*sin(\inclination)});
+        
+        % portion of orbital plane above the equatorial plane (outline)
+        \draw[color_theme,thick]plot[variable=\x,domain=-\argper:(180-\argper),samples=360]({sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(cos(\raan)*cos(\argper+\x)-sin(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(sin(\raan)*cos(\argper+\x)+cos(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*sin(\argper+\x)*sin(\inclination)});
+        
+        % projection of "upper" orbital plane onto equatorial plane (dotted line)
+        \draw[dotted]plot[variable=\x,domain=-\argper:(180-\argper),samples=360]({sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(cos(\raan)*cos(\argper+\x)-sin(\raan)*sin(\argper+\x)*cos(\inclination))},{sqrt(((\semilatusrectum*cos(\x)/(1+\eccentricity*cos(\x)))^2)+((\semilatusrectum*sin(\x)/(1+\eccentricity*cos(\x)))^2))*(sin(\raan)*cos(\argper+\x)+cos(\raan)*sin(\argper+\x)*cos(\inclination))},0);
+        
+        % orbital plane label
+        \node at (0.7*\semimajoraxis,-0.52*\semimajoraxis,-0.25*\semimajoraxis)[left,text width=4em,color_theme]{orbital plane};
+
+        % --------------------
+        % Drawing the vectors.
+        % --------------------
+        
+        % inertial (IJK) axes
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(1.5,0,0)node[pos=1.07]{$\boldsymbol{\hat{I}}$};
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(0,1.5,0)node[pos=1.03]{$\boldsymbol{\hat{J}}$};
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(0,0,1.5)node[pos=1.05]{$\boldsymbol{\hat{K}}$};
+        
+        % position vector
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(\rI,\rJ,\rK)node[pos=0.8,right]{$\boldsymbol{r}$};
+
+        % P basis vector
+        \draw[-mylatex',/tiplen=0.3cm,thick,color_theme](0,0,0)--(3*\eI,3*\eJ,3*\eK)node[pos=1.05,xshift=2]{$\boldsymbol{\hat{P}}$};
+        
+        % Q basis vector
+        \draw[-mylatex',/tiplen=0.3cm,thick,color_theme](0,0,0)--(2*\QI,2*\QJ,2*\QK)node[pos=1.05,xshift=2]{$\boldsymbol{\hat{Q}}$};
+        
+        % W basis vector
+        \draw[-mylatex',/tiplen=0.3cm,thick,color_theme](0,0,0)--(\hI,\hJ,\hK)node[above]{$\boldsymbol{\hat{W}}$};
+        
+        % node vector (scaled)
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(2.25*\nI,2.25*\nJ,2.25*\nK)node[pos=1,xshift=-10,yshift=5]{$\boldsymbol{n}$};
+        
+        % line of nodes
+        \draw[dotted,thick](-3*\nI,-3*\nJ,-3*\nK)--(3*\nI,3*\nJ,3*\nK)node[pos=1.2,rotate=-76]{line of nodes};
+        
+        % satellite position
+        \draw[thick,black,fill=white](\rI,\rJ,\rK)circle(0.15ex)node[align=left,xshift=8,yshift=14]{satellite\\position};
+        
+        % -------------------
+        % Drawing the angles.
+        % -------------------
+        
+        % right ascension of the ascending node
+        \tdplotdrawarc[-mylatex',/tiplen=0.2cm,color_theme]{(0,0,0)}{0.33*\semimajoraxis}{0}{\raan}{anchor=north}{$\Omega$}
+        
+        % rotates TikZ's coordinate system for drawing argument of periapsis
+        \tdplotsetrotatedcoords{\raan-90}{\inclination}{0}
+
+        % argument of periapsis and true anomaly
+        \begin{scope}[tdplot_rotated_coords]
+
+            % argument of periapsis
+            \tdplotdrawarc[-mylatex',/tiplen=0.2cm,color_theme]{(0,0,0)}{0.33*\semimajoraxis}{90}{90+\argper}{anchor=west}{$\omega$}
+            
+            % true anomaly
+            \tdplotdrawarc[-mylatex',/tiplen=0.2cm]{(0,0,0)}{0.33*\semimajoraxis}{90+\argper}{90+\argper+\trueanomaly}{anchor=south west}{$\nu$}
+            
+        \end{scope}
+
+        % inclination (K to h)
+        %   --> 1st coordinate: center of orbit
+        %   --> 2nd coordinate: start of arc
+        %   --> 3rd coordinate: end of arc
+        %   --> use radius of sphere for radius of arc
+        \tdplotdefinepoints(0,0,0)(0,0,1)(\hI,\hJ,\hK)
+        \tdplotdrawpolytopearc[-mylatex',/tiplen=0.2cm,color_theme]{0.8*\semimajoraxis}{anchor=south}{\textcolor{color_theme}{$i$}}
+        
+        % inclination (between planes)
+        %   --> 1st coordinate: center of orbit
+        %   --> 2nd coordinate: start of arc
+        %   --> 3rd coordinate: end of arc
+        %   --> use radius of sphere for radius of arc
+        \tdplotdefinepoints(0,0,0)(0.5,0.5,0)(0.57,0.48,0.14)
+        \tdplotdrawpolytopearc[-mylatex',/tiplen=0.2cm,color_theme]{0.75*\semimajoraxis}{anchor=west,yshift=2}{\textcolor{color_theme}{$i$}}
+        
+    \end{tikzpicture}
+
+\end{document}

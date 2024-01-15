@@ -1,0 +1,37 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+            
+        % propagation function
+        \node(propfunc)[draw,thick,outer sep=0,minimum width=1cm,minimum height=1.5cm]{\begin{tabular}{c} $\mathbf{g}(t,\mathbf{y})$ \\ \textit{single-step propagation function} \end{tabular}};
+        
+        % propagation function input
+        \draw[-mylatex',/tiplen=0.25cm,thick](propfunc.west)++(-1cm,0)--+(1cm,0)node[anchor=east,xshift=-30]{$\mathbf{f}(t,\mathbf{y})$, $t_{n}$, $\mathbf{y}_{n}$, $h$};
+        
+        % propagation function output
+        \draw[-mylatex',/tiplen=0.25cm,thick](propfunc.east)++(0,0)--+(1cm,0)node[anchor=west]{$\mathbf{y}_{n+1}$};
+
+    \end{tikzpicture}
+
+\end{document}

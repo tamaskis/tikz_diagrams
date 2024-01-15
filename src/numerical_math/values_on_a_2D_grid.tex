@@ -1,0 +1,65 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % node spacing
+        \pgfmathsetmacro{\s}{1.5}
+        
+        % node radius
+        \pgfmathsetmacro{\r}{0.125}
+        
+        % base yshift for labels
+        \pgfmathsetmacro{\a}{7}
+        
+        % axes
+        \draw(0,0)--(5*\s,0)node[right]{$x$};
+        \draw(0,0)--(0,4.5*\s)node[above]{$y$};
+        
+        % 1st row of values
+        \draw[fill=shade_color,thick](1*\s,1)circle(\r)node[above,yshift=\a]{$\vec{v}_{1,1}$};
+        \draw[fill=shade_color,thick](2*\s,1)circle(\r)node[above,yshift=\a]{$\vec{v}_{2,1}$};
+        \node[align=center]at(3*\s,1){$\cdots$};
+        \draw[fill=shade_color,thick](4*\s,1)circle(\r)node[above,yshift=\a]{$\vec{v}_{N_{x},1}$};
+
+        % 2nd row of values
+        \draw[fill=shade_color,thick](1*\s,2*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{1,2}$};
+        \draw[fill=shade_color,thick](2*\s,2*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{2,2}$};
+        \node[align=center]at(3*\s,2*\s){$\cdots$};
+        \draw[fill=shade_color,thick](4*\s,2*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{N_{x},2}$};
+
+        % row of ellipses
+        \node[align=center]at(1*\s,3*\s){$\vdots$};
+        \node[align=center]at(2*\s,3*\s){$\vdots$};
+        \node[align=center]at(3*\s,3*\s){$\iddots$};
+        \node[align=center]at(4*\s,3*\s){$\vdots$};
+
+        % Nyth row of values
+        \draw[fill=shade_color,thick](1*\s,3.5*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{1,N_{y}}$};
+        \draw[fill=shade_color,thick](2*\s,3.5*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{2,N_{y}}$};
+        \node[align=center]at(3*\s,3.5*\s){$\cdots$};
+        \draw[fill=shade_color,thick](4*\s,3.5*\s)circle(\r)node[above,yshift=\a]{$\vec{v}_{N_{x},N_{y}}$};
+        
+    \end{tikzpicture}
+
+\end{document}

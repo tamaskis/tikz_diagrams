@@ -1,0 +1,37 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+            
+        % IVP solver
+        \node(IVP)[draw,thick,outer sep=0,minimum width=1cm,minimum height=1.5cm]{\begin{tabular}{c} IVP Solver \\ \textit{time detection mode} \end{tabular}};
+        
+        % IVP solver input
+        \draw[-mylatex',/tiplen=0.25cm,thick](IVP.west)++(-1cm,0)--+(1cm,0)node[anchor=east,xshift=-30]{$\mathbf{f}(t,\mathbf{y})$, $\mathbf{y}_{0}$, $t_{0}$, $t_{f}$, $h$};
+        
+        % IVP solver output
+        \draw[-mylatex',/tiplen=0.25cm,thick](IVP.east)++(0,0)--+(1cm,0)node[anchor=west]{$\mathbf{t}$, $[\mathbf{y}]$};
+
+    \end{tikzpicture}
+
+\end{document}

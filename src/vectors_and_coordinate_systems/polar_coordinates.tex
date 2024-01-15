@@ -1,0 +1,41 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % axes
+        \draw(0,0)--(5,0)node[right]{$x$};
+        \draw(0,0)--(0,5)node[above]{$y$};
+        
+        % particle
+        \draw[fill=black](3,3)circle(0.05)node[above,yshift=2]{$P$};
+
+        % radial distance
+        \draw[color_theme,dotted,thick](0,0)--(2.965,2.965)node[pos=0.55,above,yshift=1]{$r$};
+        
+        % angle
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0)}{2}{0}{45}{right}{$\theta$};
+        
+    \end{tikzpicture}
+
+\end{document}

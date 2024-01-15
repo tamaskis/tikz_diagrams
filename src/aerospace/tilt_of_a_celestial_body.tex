@@ -1,0 +1,95 @@
+% References:
+%   [1] https://latexdraw.com/draw-a-sphere-in-latex-using-tikz/
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=4]
+        
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % raw parameters
+        \def\r{0.5}         % sphere radius
+        \def\rot{50}        % rotation angle [deg]
+        \def\tilt{25}       % tilt angle [deg]
+        \def\scale{2.5}     % axis scale
+        
+        % derived parameters
+        \def\x{\scale*\r} % x-axis
+        \def\y{\scale*\r} % y-axis
+        \def\z{\scale*\r} % z-axis
+        
+        % -------
+        % Sphere.
+        % -------
+        
+        % shaded sphere
+        \draw[tdplot_screen_coords,fill=gray,opacity=0.1](0,0,0)circle(\r);
+        
+        % sphere border
+        \draw[tdplot_screen_coords,thin,black!30](0,0,0)circle(\r);
+        
+        % ---------------------
+        % Original orientation.
+        % ---------------------
+        
+        % coordinate axes
+        \draw[thick](0,0,0)--(0,\y,0)node[pos=1.05]{$y$};
+        \draw[thick](0,0,0)--(0,0,\z)node[pos=1.05]{$z$};
+        
+        % ecliptic plane
+        \tdplotCsDrawLatCircle[tdplotCsFill/.style={opacity=0.1}]{\r}{0};
+        \draw(0.8*\r,-0.4*\r,0*\r)--(1.1*\r,-1.2*\r,-0.5*\r)node[pos=1.05,left,align=right,xshift=3,yshift=-7]{ecliptic\\plane};
+        
+        % ----------------
+        % New orientation.
+        % ----------------
+        
+        % coordinate axes
+        \tdplotsetrotatedcoords{90}{\tilt}{-90};
+        \begin{scope}[tdplot_rotated_coords]
+            \draw[thick,color_theme](0,0,0)--(\x,0,0)node[pos=1.05,xshift=-5,yshift=-5]{\textcolor{black}{$x$,} $x'$};
+            \draw[thick,color_theme](0,0,0)--(0,\y,0)node[pos=1.05]{$y'$};
+            \draw[thick,color_theme](0,0,0)--(0,0,\z)node[pos=1.07]{$z'$};
+        \end{scope}
+        
+        % equatorial plane
+        \tdplotCsDrawCircle[color_theme,tdplotCsFill/.style={color=color_theme,opacity=0.1}]{\r}{-90}{-\tilt}{0}
+        \draw[color_theme](0.8*\r,-0.45*\r,0.9*\r)--(1.1*\r,-1.2*\r,\r)node[color_theme,pos=1.05,left,align=right,xshift=2,yshift=5]{equatorial\\plane};
+        
+        % obliquity
+        %   --> 1st coordinate: center of sphere
+        %   --> 2nd coordinate: start of arc
+        %   --> 3rd coordinate: end of arc
+        %   --> use radius of sphere for radius of arc
+        \tdplotdefinepoints(0,0,0)(0.6428*\r,0.766*\r,0)(0.6428*\r,0.6943*\r,-0.3237*\r)
+        \tdplotdrawpolytopearc[-mylatex',thick,color_theme]{\r}{anchor=west,yshift=2,color_theme}{$\varepsilon$}
+        
+    \end{tikzpicture}
+
+\end{document}

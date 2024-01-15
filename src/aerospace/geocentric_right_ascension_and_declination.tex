@@ -1,0 +1,115 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{75}{119}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=4]
+        
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % sphere radius
+        \pgfmathsetmacro{\r}{0.5};
+        
+        % axes lengths
+        \pgfmathsetmacro{\x}{2.5*\r};    % x-axis
+        \pgfmathsetmacro{\y}{2.25*\r};   % y-axis
+        \pgfmathsetmacro{\z}{2*\r};      % z-axis
+        
+        % right ascension and declination [deg]
+        \pgfmathsetmacro{\dec}{50};
+        \pgfmathsetmacro{\ra}{70};
+        
+        % satellite position (assuming distance of 1.25, right ascension of 70 deg, and declination of 50 deg --> calculated manually to avoid LaTeX's "Dimension too large." error)
+        \pgfmathsetmacro{\rI}{0.274808};
+        \pgfmathsetmacro{\rJ}{0.755028};
+        \pgfmathsetmacro{\rK}{0.957556};
+        
+        % --------
+        % Drawing.
+        % --------
+        
+        % portions of basis vectors inside of sphere
+        \draw[thick](0,0,0)--(\r,0,0);
+        \draw[thick](0,0,0)--(0,\r,0);
+        \draw[thick](0,0,0)--(0,0,\r);
+        
+        % outside circle
+        \draw[tdplot_screen_coords,thin,black!30,fill=color_theme,opacity=0.1](0,0,0)circle(\r);
+        
+        % lines of latitude
+        \foreach \a in {-75,-60,...,75}{
+            \tdplotCsDrawLatCircle[thin,black!30]{\r}{\a}
+        }
+        
+        % lines of longitude
+        \foreach \a in {0,15,...,165}{
+            \tdplotCsDrawLonCircle[thin,black!30]{\r}{\a}
+        }
+        
+        % equatorial plane
+        \tdplotCsDrawLatCircle[thick,tdplotCsFill/.style={opacity=0.1}]{\r}{0};
+        \draw(-0.3*\r,-0.8*\r,0)--(-0.3*\r,-1.5*\r,0.25*\r)node[pos=1.05,left,align=right,xshift=2,yshift=5]{equatorial\\plane};
+        
+        % coordinate axes outside of sphere
+        \draw(\r,0,0)--(\x,0,0)node[pos=1.15,align=center,yshift=-7]{$\vernal$\\(vernal equinox)};
+        \draw(0,\r,0)--(0,\y,0);
+        \draw(0,0,\r)--(0,0,\z);
+        
+        % line for right ascension
+        \pgfmathsetmacro{\xline}{\x*cos(\ra)};
+        \pgfmathsetmacro{\yline}{\x*sin(\ra)};
+        \draw(0,0,0)--(\xline,\yline,0);
+        
+        % right ascension
+        %   --> 1st coordinate: center of orbit
+        %   --> 2nd coordinate: start of arc
+        %   --> 3rd coordinate: end of arc
+        %   --> use radius of sphere for radius of arc
+        \tdplotdefinepoints(0,0,0)(0.9*\x,0,0)(0.9*\xline,0.9*\yline,0)
+        \tdplotdrawpolytopearc[-mylatex',/tiplen=0.2cm,color_theme]{0.9*\x}{anchor=north,color_theme}{$\alpha$}
+        
+        % declination
+        %   --> 1st coordinate: center of orbit
+        %   --> 2nd coordinate: start of arc
+        %   --> 3rd coordinate: end of arc
+        %   --> use radius of sphere for radius of arc
+        \tdplotdefinepoints(0,0,0)(0.9*\xline,0.9*\yline,0)(0.9*\rI,0.9*\rJ,0.9*\rK)
+        \tdplotdrawpolytopearc[-mylatex',/tiplen=0.2cm,color_theme]{0.9*\x}{anchor=west,color_theme}{$\delta$}
+        
+        % satellite position vector
+        \draw[-mylatex',thick](0,0,0)--(\rI,\rJ,\rK)node[pos=0.75,yshift=8]{$\mathbf{r}$};
+        
+        % satellite position marker
+        \draw[thick,black,fill=white](\rI,\rJ,\rK)circle(0.15ex)node[right,xshift=2,yshift=1]{satellite};
+        
+        % portions of basis vectors outside of sphere
+        \draw[-mylatex',thick](\r,0,0)--(\r*1.5,0,0)node[pos=1.07,right,yshift=-5]{$\mathbf{\hat{I}}$};
+        \draw[-mylatex',thick](0,\r,0)--(0,\r*1.5,0)node[pos=1.05,above]{$\mathbf{\hat{J}}$};
+        \draw[-mylatex',thick](0,0,\r)--(0,0,\r*1.5)node[pos=1.05,right]{$\mathbf{\hat{K}}$};
+        
+    \end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,86 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+
+        % --------------------------
+        % Inertial coordinate frame.
+        % --------------------------
+        
+        % origin
+        \node[xshift=1,yshift=-8]at(0,0){$\mathcal{I}$};
+        
+        % axes
+        \draw(0,0,0)--(2,0,0);
+        \draw(0,0,0)--(0,2,0);
+        \draw(0,0,0)--(0,0,2);
+
+        % -----------------
+        % Body definitions.
+        % -----------------
+        
+        % body 1
+        \pgfmathsetmacro{\xj}{-1}
+        \pgfmathsetmacro{\yj}{-2}
+        \pgfmathsetmacro{\zj}{1}
+
+        % body 2
+        \pgfmathsetmacro{\xk}{1}
+        \pgfmathsetmacro{\yk}{5}
+        \pgfmathsetmacro{\zk}{5}
+        
+        % -------------
+        % Draws bodies.
+        % -------------
+        
+        % bodies
+        \draw[fill=verylightgray,thick](\xj,\yj,\zj)circle(2.7ex)node[above,yshift=10]{$m_{1}$};
+        \draw[fill=verylightgray,thick](\xk,\yk,\zk)circle(4ex)node[above,yshift=16]{$m_{2}$};
+        
+        % centers
+        \draw[fill=black](\xj,\yj,\zj)circle(0.25ex);
+        \draw[fill=black](\xk,\yk,\zk)circle(0.25ex);
+
+        % -------------------------
+        % Draws absolute positions.
+        % -------------------------
+
+        % position of body 1
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(\xj,\yj,\zj)node[pos=0.5,left,yshift=-2,xshift=2]{$\boldsymbol{r}_{1}$};
+
+        % position of body 2
+        \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(\xk,\yk,\zk)node[pos=0.5,below,yshift=-5]{$\boldsymbol{r}_{2}$};
+
+        % ------------------------
+        % Draws relative position.
+        % ------------------------
+        
+        % relative position
+        \draw[-mylatex',/tiplen=0.3cm,thick,color_theme](\xj,\yj,\zj)--(\xk,\yk,\zk)node[pos=0.5,above,yshift=2,color_theme]{$\boldsymbol{r}_{2/1}$};
+        
+    \end{tikzpicture}
+
+\end{document}

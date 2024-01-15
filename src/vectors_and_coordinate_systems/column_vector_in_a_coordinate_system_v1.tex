@@ -1,0 +1,65 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % -----------------------
+        % Oxyz coordinate system.
+        % -----------------------
+        
+        % origin
+        \node[xshift=1,yshift=-6]at(0,0){$O$};
+        
+        % axes
+        \draw(0,0,0)--(5,0,0)node[pos=1.07]{$x$};
+        \draw(0,0,0)--(0,5,0)node[pos=1.03]{$y$};
+        \draw(0,0,0)--(0,0,5)node[pos=1.035]{$z$};
+        
+        % basis vectors
+        \draw[-mylatex',thick](0,0,0)--(1.5,0,0)node[above,xshift=-2]{$\mathbf{\hat{x}}$};
+        \draw[-mylatex',thick](0,0,0)--(0,1.5,0)node[below,xshift=-15,yshift=3]{$\mathbf{\hat{y}}$};
+        \draw[-mylatex',thick](0,0,0)--(0,0,1.5)node[right]{$\mathbf{\hat{z}}$};
+        
+        % -----------
+        % Vector "v".
+        % -----------
+        
+        % define components
+        \pgfmathsetmacro{\vx}{4}
+        \pgfmathsetmacro{\vy}{4.5}
+        \pgfmathsetmacro{\vz}{3}
+        
+        % vector
+        \draw[-mylatex',thick,color_theme](0,0,0)--(\vx,\vy,\vz)node[pos=0.75,above]{$\mathbf{v}$};
+        
+        % components
+        \draw[dotted,color_theme](\vx,0,0)--(\vx,\vy,0)node[pos=0.5,below]{$v_{x}$};
+        \draw[dotted,color_theme](0,\vy,0)--(\vx,\vy,0)node[pos=0.6,right,xshift=6]{$v_{y}$};
+        \draw[dotted,color_theme](\vx,\vy,0)--(\vx,\vy,\vz)node[pos=0.75,left,xshift=1]{$v_{z}$};
+        
+    \end{tikzpicture}
+
+\end{document}

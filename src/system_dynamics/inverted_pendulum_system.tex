@@ -1,0 +1,92 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % cart parameters
+        \pgfmathsetmacro{\L}{3};        % length
+        \pgfmathsetmacro{\H}{1};        % height
+        \pgfmathsetmacro{\R}{0.25};     % wheel radii
+        \pgfmathsetmacro{\mR}{0.2};     % mount radii
+        
+        % pendulum parameters
+        \pgfmathsetmacro{\l}{5};                            % length
+        \pgfmathsetmacro{\r}{0.3};                          % radius
+        \pgfmathsetmacro{\angle}{-20};                      % angle
+        \pgfmathsetmacro{\Xone}{0};                         % x-coordinate of bar start
+        \pgfmathsetmacro{\Yone}{2*\R+\H+\mR/2};             % y-coordinate of bar start
+        \pgfmathsetmacro{\Xtwo}{\l*sin(\angle)};            % x-coordinate of bar end
+        \pgfmathsetmacro{\Ytwo}{2*\R+\mR/2+\l*cos(\angle)}; % y-coordinate of bar end
+
+        % ---------
+        % Pendulum.
+        % ---------
+        
+        % mount for pendulum
+        \draw[thick](0,2*\R+\H)circle(\mR);
+        
+        % pendulum bar
+        \draw[line width=1mm](\Xone,\Yone)--(\Xtwo,\Ytwo)node[midway,xshift=-8]{$\ell$};
+        
+        % mass on pendulum
+        \draw[thick,fill=black](\Xtwo,\Ytwo)circle(\r)node[anchor=west,xshift=8,yshift=0]{$m$};
+        
+        % vertical reference line
+        \draw[thick,dotted](\Xone,\Yone+\mR)--(\Xone,\Yone+0.9*\l);
+        
+        % angle
+        \draw[mylatex'-mylatex'](\Xone,\Yone+0.5*\l)arc(90:90-1.25*\angle:0.5*\l)node[midway,yshift=6]{$\theta$};
+        
+        % -----
+        % Cart.
+        % -----
+        
+        % cart body
+        \draw[thick,fill=white](-\L/2,2*\R)rectangle(\L/2,2*\R+\H)node[pos=0.5]{$M$};
+        
+        % wheels
+        \draw[thick](-\L/2+2*\R,\R)circle(\R);
+        \draw[thick](\L/2-2*\R,\R)circle(\R);
+        
+        % -----
+        % Misc.
+        % -----
+        
+        % force
+        \draw[-mylatex',/tiplen=0.25cm,thick,color_theme](\L/2,2*\R+\H/2)--(3*\L/4,2*\R+\H/2)node[anchor=south,xshift=7,yshift=-7]{$F$};
+        
+        % ground
+        \draw[fill,pattern=north east lines,draw=none](-\L,-0.25)--(\L,-0.25)--(\L,0)--(-\L,0)--cycle;
+        \draw(-\L,0)--(\L,0);
+        
+        % coordinate system
+        \draw[-mylatex',/tiplen=0.15cm](1,2*\R+\H+\l/4)--(2,2*\R+\H+\l/4)node[anchor=south,xshift=6,yshift=-6]{$x$};
+        \draw[-mylatex',/tiplen=0.15cm](1,2*\R+\H+\l/4)--(1,2*\R+\H+\l/4+1)node[anchor=south,xshift=0,yshift=0]{$y$};
+        
+    \end{tikzpicture}
+    
+\end{document}

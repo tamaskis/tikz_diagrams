@@ -1,0 +1,58 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % central body
+        \draw[fill=gray!20!white](0,0)circle(1.5)node[below,yshift=-10]{\textit{central body}};
+        
+        % axes
+        \draw(0,0)--(5,0)node[right]{$P$};
+        \draw(0,0)--(0,5)node[above]{$Q$};
+        
+        % center of central body
+        \draw[fill=black](0,0)circle(0.075);
+        
+        % true anomaly
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0)}{3}{0}{45}{right}{$\nu$};
+        
+        % position vector
+        \draw[-mylatex',thick,dotted](0,0)--(2.93,2.93)node[pos=0.55,above,yshift=1]{$\boldsymbol{r}$};
+        
+        % PQW frame
+        \draw[-mylatex',thick](0,0)--(2.5,0)node[pos=0.95,yshift=-8]{$\boldsymbol{\hat{P}}$};
+        \draw[-mylatex',thick](0,0)--(0,2.5)node[pos=1,xshift=6]{$\boldsymbol{\hat{Q}}$};
+
+        % RSW frame
+        \draw[-mylatex',thick,color_theme](3,3)--(4.77,4.77)node[pos=1.1]{$\boldsymbol{\hat{R}}$};
+        \draw[-mylatex',thick,color_theme](3,3)--(1.33,4.77)node[pos=1.08]{$\boldsymbol{\hat{S}}$};
+
+        % velocity vector
+        \draw[-mylatex',thick,dotted](3,3)--(2.5,5)node[pos=1,above]{$\boldsymbol{v}$};
+        
+        % satellite position
+        \draw[fill=shade_color](3,3)circle(0.1)node[right,yshift=0,xshift=2]{satellite};
+        
+    \end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,129 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % ----------
+        % Constants.
+        % ----------
+
+        % point radius
+        \pgfmathsetmacro{\rp}{0.025}
+
+        % arrow proportion
+        \pgfmathsetmacro{\ap}{0.35}
+
+        % -----------------
+        % Body definitions.
+        % -----------------
+        
+        % body j
+        \pgfmathsetmacro{\xj}{0}
+        \pgfmathsetmacro{\yj}{0}
+        \pgfmathsetmacro{\rj}{0.3}
+
+        % body k
+        \pgfmathsetmacro{\xk}{5}
+        \pgfmathsetmacro{\yk}{2}
+        \pgfmathsetmacro{\rk}{0.5}
+
+        % body 1
+        \pgfmathsetmacro{\xa}{-1}
+        \pgfmathsetmacro{\ya}{1}
+        \pgfmathsetmacro{\ra}{0.2}
+
+        % body 2
+        \pgfmathsetmacro{\xb}{1}
+        \pgfmathsetmacro{\yb}{2}
+        \pgfmathsetmacro{\rb}{0.4}
+        
+        % body 3
+        \pgfmathsetmacro{\xc}{3}
+        \pgfmathsetmacro{\yc}{4}
+        \pgfmathsetmacro{\rc}{0.6}
+
+        % body N
+        \pgfmathsetmacro{\xn}{4.5}
+        \pgfmathsetmacro{\yn}{-0.5}
+        \pgfmathsetmacro{\rn}{0.35}
+
+        % -------------
+        % Draws bodies.
+        % -------------
+        
+        % bodies
+        \draw[fill=shade_color,thick](\xj,\yj)circle(\rj)node[below,xshift=-8,yshift=-8]{$j$};
+        \draw[fill=shade_color,thick](\xk,\yk)circle(\rk)node[right,xshift=14,yshift=5]{$k$};
+        \draw[fill=verylightgray,thick](\xa,\ya)circle(\ra)node[left,xshift=-5]{$1$};
+        \draw[fill=verylightgray,thick](\xb,\yb)circle(\rb)node[above,xshift=-9,yshift=9]{$2$};
+        \draw[fill=verylightgray,thick](\xc,\yc)circle(\rc)node[above,yshift=16]{$3$};
+        \draw[fill=verylightgray,thick](\xn,\yn)circle(\rn)node[below,yshift=-10,xshift=5]{$N$};
+
+        % centers
+        \draw[fill=black](\xj,\yj)circle(\rp);
+        \draw[fill=black](\xk,\yk)circle(\rp);
+        \draw[fill=black](\xa,\ya)circle(\rp);
+        \draw[fill=black](\xb,\yb)circle(\rp);
+        \draw[fill=black](\xc,\yc)circle(\rp);
+        \draw[fill=black](\xn,\yn)circle(\rp);
+
+        % -------------
+        % Draws forces.
+        % -------------
+
+        % dotted lines
+        \draw[dotted](\xa,\ya)--(\xb,\yb);
+        \draw[dotted](\xa,\ya)--(\xc,\yc);
+        \draw[dotted](\xa,\ya)--(\xj,\yj);
+        \draw[dotted](\xa,\ya)--(\xk,\yk);
+        \draw[dotted](\xa,\ya)--(\xn,\yn);
+        \draw[dotted](\xb,\yb)--(\xc,\yc);
+        \draw[dotted](\xb,\yb)--(\xj,\yj);
+        \draw[dotted](\xb,\yb)--(\xk,\yk);
+        \draw[dotted](\xb,\yb)--(\xn,\yn);
+        \draw[dotted](\xc,\yc)--(\xj,\yj);
+        \draw[dotted](\xc,\yc)--(\xk,\yk);
+        \draw[dotted](\xc,\yc)--(\xn,\yn);
+        \draw[dotted,color_theme,thick](\xj,\yj)--(\xk,\yk);
+        \draw[dotted](\xj,\yj)--(\xn,\yn);
+        \draw[dotted](\xk,\yk)--(\xn,\yn);
+        
+        % arrow coordinates from j to k
+        \pgfmathsetmacro{\xsj}{\xj}
+        \pgfmathsetmacro{\xej}{\xj+\ap*(\xk-\xj)}
+        \pgfmathsetmacro{\ysj}{\yj}
+        \pgfmathsetmacro{\yej}{\yj+\ap*(\yk-\yj)}
+
+        % arrow coordinates from k to j
+        \pgfmathsetmacro{\xsk}{\xk}
+        \pgfmathsetmacro{\xek}{\xk+\ap*(\xj-\xk)}
+        \pgfmathsetmacro{\ysk}{\yk}
+        \pgfmathsetmacro{\yek}{\yk+\ap*(\yj-\yk)}
+
+        % draws arrows
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xsj,\ysj)--(\xej,\yej)node[pos=1,above,color_theme]{$\boldsymbol{F}_{jk}$};
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xsk,\ysk)--(\xek,\yek)node[pos=0.95,below,yshift=-2,color_theme]{$\boldsymbol{F}_{kj}$};
+        
+    \end{tikzpicture}
+
+\end{document}

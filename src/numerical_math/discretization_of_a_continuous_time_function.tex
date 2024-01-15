@@ -1,0 +1,69 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={g(\t)=\t/5-cos(deg(\t*1.85))/2+1;}]
+        
+        % axes
+        \draw(0,0)--(10,0)node[right]{$t$};
+        \draw(0,0)--(0,4)node[above]{$z$};
+        
+        % plot of continuous-time function
+        \draw[domain=1:9,smooth,variable=\t,color_theme,thick]plot({\t},{g(\t)})node[anchor=south,xshift=-20,pin=90:{$z=g(t)$}]{};
+        
+        % lines to sample points
+        \draw[dotted](1,0)--(1,{g(1)});
+        \draw[dotted](2,0)--(2,{g(2)});
+        \draw[dotted](3,0)--(3,{g(3)});
+        \draw[dotted](4,0)--(4,{g(4)});
+        \draw[dotted](5,0)--(5,{g(5)});
+        \draw[dotted](6,0)--(6,{g(6)});
+        \draw[dotted](7,0)--(7,{g(7)});
+        \draw[dotted](8,0)--(8,{g(8)});
+        \draw[dotted](9,0)--(9,{g(9)});
+        
+        % tick marks
+        \draw(1,0)--(1,-0.15)node[pos=1,below]{$t_{0}$};
+        \draw(2,0)--(2,-0.15)node[pos=1,below]{$t_{2}$};
+        \draw(4,0)--(4,-0.15)node[pos=1,below]{$t_{n-1}$};
+        \draw(5,0)--(5,-0.15)node[pos=1,below]{$t_{n}$};
+        \draw(6,0)--(6,-0.15)node[pos=1,below]{$t_{n+1}$};
+        \draw(8,0)--(8,-0.15)node[pos=1,below]{$t_{N-1}$};
+        \draw(9,0)--(9,-0.15)node[pos=1,below]{$t_{N}$};
+        
+        % sample points
+        \draw[fill=white,thick](1,{g(1)})circle(0.075)node[above,yshift=2]{$z_{1}$};
+        \draw[fill=white,thick](2,{g(2)})circle(0.075)node[above]{$z_{2}$};
+        \draw[fill=white,thick](3,{g(3)})circle(0.075);
+        \draw[fill=white,thick](4,{g(4)})circle(0.075)node[above,xshift=-7]{$z_{n-1}$};
+        \draw[fill=white,thick](5,{g(5)})circle(0.075)node[above]{$z_{n}$};
+        \draw[fill=white,thick](6,{g(6)})circle(0.075)node[above,xshift=7]{$z_{n+1}$};
+        \draw[fill=white,thick](7,{g(7)})circle(0.075);
+        \draw[fill=white,thick](8,{g(8)})circle(0.075)node[above,xshift=-8]{$z_{N-1}$};
+        \draw[fill=white,thick](9,{g(9)})circle(0.075)node[above,xshift=2,yshift=1]{$z_{N}$};
+        
+        % grid spacing
+        \draw[mylatex'-mylatex',/tiplen=0.2cm](5,0.25)--(6,0.25)node[pos=0.5,above]{$\Delta t$};
+        
+    \end{tikzpicture}
+
+\end{document}

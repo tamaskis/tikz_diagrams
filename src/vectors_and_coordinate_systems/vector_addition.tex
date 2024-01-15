@@ -1,0 +1,37 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % vector a
+        \draw[-mylatex',thick](0,0)--(2,0.5)node[pos=0.5,below]{$\mathbf{a}$};
+
+        % vector b
+        \draw[-mylatex',thick](2,0.5)--(3,3)node[pos=0.5,below,xshift=5]{$\mathbf{b}$};
+        
+        % vector a+b
+        \draw[-mylatex',thick,color_theme](0,0)--(3,3)node[pos=0.55,left,xshift=-4]{$\mathbf{a}+\mathbf{b}$};
+        
+    \end{tikzpicture}
+
+\end{document}

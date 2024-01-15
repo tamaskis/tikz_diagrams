@@ -1,0 +1,51 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/126019/drawing-a-plane-in-3d-space
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{110}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[scale=3,tdplot_main_coords]
+        
+        % plane
+        \filldraw[draw=color_theme,fill=shade_color](0,0,0)--(0,2,0)--(2,2,0)--(2,0,0)--cycle
+            node[right=185,pos=0.4,color_theme]{$C(\mathbf{A})$}
+        ;
+        
+        % vector (b)
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(0.5,1.5,.75)node[above=12,pos=0.55]{$\mathbf{b}\notin C(\mathbf{A})$};
+        
+        % vector parallel to C(A) (Ax)
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(0.5,1.5,0)node[below=3,pos=0.6]{$\mathbf{A}\mathbf{x}\in C(\mathbf{A})$};
+        
+        % vector normal to C(A) (b-Ax)
+        \draw[-mylatex',thick,/tiplen=0.3cm](0.5,1.5,0)--(0.5,1.5,.75)node[right,midway]{$\mathbf{b}-\mathbf{A}\mathbf{x}\in C(\mathbf{A})^{\perp}$};
+        
+        % perpendicular symbol
+        \draw[thin](0.5,1.5,0)--(0.5,1.5,0.1)--(0.55,1.45,0.1)--(0.55,1.45,0)--cycle;
+        
+    \end{tikzpicture}
+
+\end{document}

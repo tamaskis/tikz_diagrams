@@ -1,0 +1,68 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % parameters
+        \pgfmathsetmacro{\L}{3};    % ramp length
+        \pgfmathsetmacro{\H}{1};    % ramp height
+        \pgfmathsetmacro{\T}{0.1};  % ground thickness
+        \pgfmathsetmacro{\S}{0.05}; % shock thickness
+        \pgfmathsetmacro{\CA}{2};   % corner angle radius
+        \pgfmathsetmacro{\SA}{2.5}; % shock angle radius
+        
+        % shades ramp
+        \draw[fill,pattern=north east lines,draw=none](0,0)--(\L,0)--(2*\L,\H)--(2*\L,\H-\T)--(\L,-\T)--(0,-\T)--cycle;
+        
+        % draws ramp
+        \draw(0,0)--(\L,0);
+        \draw(\L,0)--(2*\L,\H);
+        
+        % dotted line
+        \draw[dotted](\L,0)--(2*\L,0);
+        
+        % draws shock
+        \draw(\L-\S,0)--(\L-\S+\L/2,\L);
+        \draw(\L,0)--(\L+\L/2,\L);
+        
+        % corner angle
+        \draw[-mylatex'](\L+\CA,0)arc(0:18:\CA)node[midway,right]{$\theta$};
+        
+        % shock angle
+        \draw[-mylatex'](\L+\SA,0)arc(0:63:\SA)node[midway,right,yshift=2]{$\beta$};
+        
+        % upstream Mach number
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\L/2,\L/8)--(0.9*\L,\L/8)node[midway,above]{$M_{1}$};
+        
+        % downstream Mach number
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](1.1*\L,\L/8)--(1.5*\L,\L/8+0.4*\H)node[midway,above]{$M_{2}$};
+        
+        % upstream label (circled 1)
+        \node[align=center]at(0.5*\L,2*\H){\circled{1}\\\textit{upstream condition}};
+        
+        % downstream label (circled 2)
+        \node[align=center]at(2.5*\L,2*\H){\circled{2}\\\textit{downstream condition}};
+        
+    \end{tikzpicture}
+
+\end{document}

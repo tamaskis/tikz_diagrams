@@ -1,0 +1,47 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords]
+        
+        % vector a
+        \draw[-mylatex',thick](0,0,0)--(2,0,0)node[pos=1.13]{$\mathbf{a}$};
+
+        % vector b
+        \draw[-mylatex',thick](0,0,0)--(0,1.5,0)node[pos=1.13]{$\mathbf{b}$};
+        
+        % vector a x b
+        \draw[-mylatex',thick,color_theme](0,0,0)--(0,0,2.5)node[pos=0.5,right]{$\mathbf{a}\times\mathbf{b}$};
+        
+        % right angles
+        \draw(0,0,0.25)--(0.25,0,0.25)--(0.25,0,0);
+        \draw(0,0,0.25)--(0,0.25,0.25)--(0,0.25,0);
+        
+        % angle
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0,0)}{1}{0}{90}{xshift=-2,yshift=-6}{$\theta$};
+        
+    \end{tikzpicture}
+
+\end{document}

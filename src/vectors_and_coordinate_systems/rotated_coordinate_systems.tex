@@ -1,0 +1,69 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % origin
+        \node[xshift=5,yshift=-7]at(0,0){$O$};
+        
+        % ----------------------
+        % Oxyz coordinate system
+        % ----------------------
+        
+        % axes
+        \draw(0,0,0)--(3,0,0)node[pos=1.12]{$x$};
+        \draw(0,0,0)--(0,3,0)node[pos=1.06]{$y$};
+        \draw(0,0,0)--(0,0,3)node[pos=1.07]{$z$};
+        
+        % basis vectors
+        \draw[-mylatex',thick](0,0,0)--(1.5,0,0)node[above,xshift=-2]{$\mathbf{\hat{x}}$};
+        \draw[-mylatex',thick](0,0,0)--(0,1.5,0)node[below,xshift=-5]{$\mathbf{\hat{y}}$};
+        \draw[-mylatex',thick](0,0,0)--(0,0,1.5)node[right]{$\mathbf{\hat{z}}$};
+        
+        % ----------------------
+        % Oabc coordinate system
+        % ----------------------
+        
+        % rotates TikZ's coordinate system by 15 deg about 3rd axis then 30 deg about 2nd axis
+        \tdplotsetrotatedcoords{15}{30}{0}
+        
+        \begin{scope}[tdplot_rotated_coords]
+            
+            % axes
+            \draw[color_theme](0,0,0)--(3,0,0)node[pos=1.12,yshift=3]{$a$};
+            \draw[color_theme](0,0,0)--(0,3,0)node[pos=1.06,xshift=-1,yshift=1]{$b$};
+            \draw[color_theme](0,0,0)--(0,0,3)node[pos=1.07,xshift=-1]{$c$};
+            
+            % basis vectors
+            \draw[-mylatex',thick,color_theme](0,0,0)--(1.5,0,0)node[left]{$\mathbf{\hat{a}}$};
+            \draw[-mylatex',thick,color_theme](0,0,0)--(0,1.5,0)node[above]{$\mathbf{\hat{b}}$};
+            \draw[-mylatex',thick,color_theme](0,0,0)--(0,0,1.5)node[left]{$\mathbf{\hat{c}}$};
+        
+        \end{scope}
+        
+    \end{tikzpicture}
+
+\end{document}

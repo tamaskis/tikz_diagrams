@@ -1,0 +1,112 @@
+% imports (from CTAN)
+\usepackage{tikz}           % drawings
+\usepackage{tikz-3dplot}    % 3D drawings
+\usepackage{times}          % sets font to Times
+\usepackage{pgfplots}       % drawing functions, better arrows (mylatex defined below)
+\usepackage{amsmath}        % mathematical symbols
+\usepackage{amsfonts}       % blackboard bold math font (\mathbb)
+\usepackage{wasysym}        % astronomical symbols
+\usepackage{epstopdf}       % needed for TikZ externalization
+\usepackage{mathdots}       % diagonal dots in opposite direction (\iddots)
+\usepackage{geometry}       % page geometry (needed to set size and margins)
+
+% imports (local)
+%   --> these packages are defined in src/.preamble/third_party
+%   --> all individual docs are compiled from src/example_folder/
+%   --> therefore, we need to specify the relative path ../.preamble/.third_party/
+\usepackage{../.preamble/third_party/tikz-3dplot-circleofsphere}    % fancy 3D circle drawing tools
+
+% sets page size and margins
+\geometry{letterpaper, margin=1in}
+
+% turn on TikZ externalization
+%   --> source: https://tex.stackexchange.com/questions/8641/export-eps-figures-from-tikz
+\usetikzlibrary{external}
+\tikzexternalize
+
+% gets rid of compiler warning message
+\pgfplotsset{compat=1.17}
+
+% sets up TikZ
+\usetikzlibrary{patterns,decorations.markings}
+
+% better arrows
+%   --> source: https://tex.stackexchange.com/questions/51555/changing-arrowheads-size-in-pgfplots-axes
+\pgfplotsset{compat=1.18}
+\pgfarrowsdeclare{mylatex'}{mylatex'}{
+    \newdimen\len
+    \len=\pgfgetarrowoptions{mylatex'}
+    \pgfarrowsleftextend{-0.4\len}
+    \pgfarrowsrightextend{0.6\len}
+}{%
+    \newdimen\len
+    \len=\pgfgetarrowoptions{mylatex'}
+    \pgfpathmoveto{\pgfqpoint{0.6\len}{0\len}}
+    \pgfpathcurveto{\pgfqpoint{0.35\len}{0.05\len}}{\pgfqpoint{-0.1\len}{0.15\len}}{\pgfqpoint{-0.4\len}{0.375\len}}
+    \pgfpathcurveto{\pgfqpoint{-0.15\len}{0.1\len}}{\pgfqpoint{-0.15\len}{-0.1\len}}{\pgfqpoint{-0.4\len}{-0.375\len}}
+    \pgfpathcurveto{\pgfqpoint{-0.1\len}{-0.15\len}}{\pgfqpoint{0.35\len}{-0.05\len}}{\pgfqpoint{0.6\len}{0\len}}
+    \pgfusepathqfill
+}
+\pgfsetarrowoptions{mylatex'}{8pt}
+\pgfkeys{/tiplen/.default=8pt,/tiplen/.code={\pgfsetarrowoptions{mylatex'}{#1}}}
+
+% defines color themes
+\definecolor{red_theme}{rgb}{0.55,0.08,0.08}
+\definecolor{blue_theme}{rgb}{0.18,0.46,0.71}
+\definecolor{green_theme}{rgb}{0.33,0.51,0.2}
+\definecolor{orange_theme}{rgb}{0.82,0.44,0.1}
+\definecolor{purple_theme}{rgb}{0.34,0.21,0.44}
+\definecolor{gold_theme}{rgb}{0.6,0.45,0.0}
+
+% defines the "colortheme" command to set up the color theme of the document
+\newcommand{\colortheme}[1]{
+    \ifthenelse{\equal{#1}{black}}{\colorlet{color_theme}{black}}{}
+    \ifthenelse{\equal{#1}{red}}{\colorlet{color_theme}{red_theme}}{}
+    \ifthenelse{\equal{#1}{blue}}{\colorlet{color_theme}{blue_theme}}{}
+    \ifthenelse{\equal{#1}{green}}{\colorlet{color_theme}{green_theme}}{}
+    \ifthenelse{\equal{#1}{orange}}{\colorlet{color_theme}{orange_theme}}{}
+    \ifthenelse{\equal{#1}{purple}}{\colorlet{color_theme}{purple_theme}}{}
+    \ifthenelse{\equal{#1}{gold}}{\colorlet{color_theme}{gold_theme}}{}
+    \colorlet{shade_color}{color_theme!20!white}
+}
+
+% defines other common colors
+\definecolor{verylightgray}{rgb}{0.9,0.9,0.9}
+
+% circled characters
+%   --> https://tex.stackexchange.com/questions/199026/how-can-i-draw-circled-integers-with-the-same-size-by-tikz
+%   --> https://tex.stackexchange.com/questions/241959/aligned-circle-around-letter-tikz
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt](char){#1};}}
+
+% command for converting 3-2-3 convention to 3-2-1 convention for tdplotsetrotatedcoords
+%   --> source: https://tex.stackexchange.com/questions/118069/how-to-draw-an-euler-angle-rotation-sequence-with-tikz
+\newcommand{\tdseteulerxyz}{
+  \renewcommand{\tdplotcalctransformrotmain}{
+        \tdplotsinandcos{\sinalpha}{\cosalpha}{\tdplotalpha}
+        \tdplotsinandcos{\sinbeta}{\cosbeta}{\tdplotbeta}
+        \tdplotsinandcos{\singamma}{\cosgamma}{\tdplotgamma}
+        \tdplotmult{\sasb}{\sinalpha}{\sinbeta}
+        \tdplotmult{\sasg}{\sinalpha}{\singamma}
+        \tdplotmult{\sasbsg}{\sasb}{\singamma}
+        \tdplotmult{\sacb}{\sinalpha}{\cosbeta}
+        \tdplotmult{\sacg}{\sinalpha}{\cosgamma}
+        \tdplotmult{\sasbcg}{\sasb}{\cosgamma}
+        \tdplotmult{\casb}{\cosalpha}{\sinbeta}
+        \tdplotmult{\cacb}{\cosalpha}{\cosbeta}
+        \tdplotmult{\cacg}{\cosalpha}{\cosgamma}
+        \tdplotmult{\casg}{\cosalpha}{\singamma}
+        \tdplotmult{\cbsg}{\cosbeta}{\singamma}
+        \tdplotmult{\cbcg}{\cosbeta}{\cosgamma}
+        \tdplotmult{\casbsg}{\casb}{\singamma}
+        \tdplotmult{\casbcg}{\casb}{\cosgamma}
+        \pgfmathsetmacro{\raaeul}{\cacb}
+        \pgfmathsetmacro{\rabeul}{\casbsg-\sacg}
+        \pgfmathsetmacro{\raceul}{\sasg+\casbcg}
+        \pgfmathsetmacro{\rbaeul}{\sacb}
+        \pgfmathsetmacro{\rbbeul}{\sasbsg+\cacg}
+        \pgfmathsetmacro{\rbceul}{\sasbcg-\casg}
+        \pgfmathsetmacro{\rcaeul}{-\sinbeta}
+        \pgfmathsetmacro{\rcbeul}{\cbsg}
+        \pgfmathsetmacro{\rcceul}{\cbcg}
+  }
+}

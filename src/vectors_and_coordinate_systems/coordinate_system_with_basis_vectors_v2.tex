@@ -1,0 +1,44 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % origin
+        \node[xshift=1,yshift=-6]at(0,0){$O$};
+        
+        % axes
+        \draw(0,0,0)--(3,0,0)node[pos=1.12]{$x_{1}$};
+        \draw(0,0,0)--(0,3,0)node[pos=1.10]{$x_{2}$};
+        \draw(0,0,0)--(0,0,3)node[pos=1.07]{$x_{3}$};
+        
+        % basis vectors
+        \draw[-mylatex',thick](0,0,0)--(1.5,0,0)node[above,xshift=-4]{$\mathbf{\hat{x}}_{1}$};
+        \draw[-mylatex',thick](0,0,0)--(0,1.5,0)node[above]{$\mathbf{\hat{x}}_{2}$};
+        \draw[-mylatex',thick](0,0,0)--(0,0,1.5)node[right]{$\mathbf{\hat{x}}_{3}$};
+        
+    \end{tikzpicture}
+
+\end{document}

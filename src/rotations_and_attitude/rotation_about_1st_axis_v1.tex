@@ -1,0 +1,89 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/118069/how-to-draw-an-euler-angle-rotation-sequence-with-tikz
+%   [2] https://tex.stackexchange.com/questions/54565/generated-figure-seems-cut-when-using-tikzexternalize
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{140}
+
+    % change rotation matrix to use 3-2-1 sequence
+    \tdseteulerxyz
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % ---------------------
+        % Variable definitions.
+        % ---------------------
+        
+        % rotation angle [deg]
+        \pgfmathsetmacro{\xRot}{20}
+        
+        % -------
+        % Origin.
+        % -------
+        
+        \node[below]at(0,0,0){$O$};
+        
+        % --------------------------
+        % Plane + angle of rotation.
+        % --------------------------
+        
+        % rotate coordinate system so xy plane becomes yz plane
+        \tdplotsetrotatedcoords{90}{0}{90}
+        
+        % angle of rotation
+        \tdplotdrawarc[tdplot_rotated_coords,-mylatex',color_theme]{(0,0,0)}{1.75}{0}{\xRot}{right}{$\theta$}
+        
+        % plane of rotation
+        \draw[tdplot_rotated_coords,fill=color_theme,opacity=0.1](0,0)circle(1.75);
+
+        % blank node to adjust bounding box (otherwise the bounding box used by TikZ externalize cuts off part of the
+        % plane)
+        \node[]at(0,0,-1.9){};
+        
+        % -----------------------
+        % Oxyz coordinate system.
+        % -----------------------
+        
+        % xyz axes
+        \draw[dotted,thick](0,0,0)--(3,0,0)node[pos=1.14,yshift=4]{$x$, $x'$};
+        \draw[dotted,thick](0,0,0)--(0,3,0)node[pos=1.08]{$y$};
+        \draw[dotted,thick](0,0,0)--(0,0,3)node[pos=1.06]{$z$};
+        
+        % --------------------------
+        % Ox'y'z' coordinate system.
+        % --------------------------
+        
+        % rotates TikZ's coordinate system about 1st axis
+        \tdplotsetrotatedcoords{0}{0}{\xRot}
+        
+        % x'y'z' axes
+        \draw[tdplot_rotated_coords](0,0,0)--(3,0,0);
+        \draw[tdplot_rotated_coords](0,0,0)--(0,3,0)node[pos=1.12]{$y'$};
+        \draw[tdplot_rotated_coords](0,0,0)--(0,0,3)node[pos=1.07,xshift=2]{$z'$};
+
+    \end{tikzpicture}
+
+\end{document}

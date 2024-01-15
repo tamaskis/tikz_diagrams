@@ -1,0 +1,36 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[decoration={markings,mark=at position 0.5 with {\arrow{mylatex'}}}]
+        
+        % arcs
+        \draw[color_theme,postaction={decorate}](1.5,0)arc(0:180:1.5);
+        \draw[color_theme,postaction={decorate}](-1.5,0)arc(180:360:1.5);
+        
+        % text
+        \node[fill=white]at(-1.5,0){$y=f(x)$};
+        \node[fill=white]at(1.5,0){$x=g(y)$};
+
+    \end{tikzpicture}
+
+\end{document}

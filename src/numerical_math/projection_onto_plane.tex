@@ -1,0 +1,59 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/126019/drawing-a-plane-in-3d-space
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{110}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[scale=3,tdplot_main_coords]
+        
+        % plane
+        \filldraw[draw=color_theme,fill=shade_color](0,0,0)--(0,2,0)--(2,2,0)--(2,0,0)--cycle;
+        
+        % position vector
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](1.5,0.5,0)--(0.5,1.5,.75)node[anchor=west,xshift=-40,yshift=-15,color_theme]{$\mathbf{r}$};
+        
+        % angular momentum unit vector
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(1.5,0.5,0.35)node[anchor=west,xshift=-7,yshift=7]{$\mathbf{\hat{h}}$};
+        
+        % projection of r onto h
+        \draw[-mylatex',thick,/tiplen=0.3cm](0.5,1.5,0)--(0.5,1.5,.75)node[anchor=west,xshift=0,yshift=-20]{$\mathbf{r}\cdot\mathbf{\hat{h}}$};
+        
+        % projection of r onto plane
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(0.5,1.5,0)node[anchor=west,xshift=-60,yshift=-12]{$\mathbf{r}-\mathbf{r}\cdot\mathbf{\hat{h}}$};
+        
+        % dashed lines
+        \draw[thin,dashed](1.5,0.5,0)--(1.5,1.5,0);
+        \draw[thin,dashed](1.5,0.5,0)--(0.5,0.5,0);
+        \draw[thin,dashed](0.5,0.5,0)--(0.5,1.5,0);
+        \draw[thin,dashed](1.5,1.5,0)--(0.5,1.5,0);
+        
+        % perpendicular symbols
+        \draw[thin](1.5,1.5,0)--(1.5,1.4,0)--(1.4,1.4,0)--(1.4,1.5,0)--cycle;
+        \draw[thin](0.5,1.5,0)--(0.5,1.5,0.1)--(0.55,1.45,0.1)--(0.55,1.45,0)--cycle;
+        
+    \end{tikzpicture}
+
+\end{document}

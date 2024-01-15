@@ -1,0 +1,31 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % vector v
+        \draw[-mylatex',thick,color_theme](0,0)--(2,1)node[pos=0.5,above]{$\boldsymbol{v}$};
+        
+    \end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,72 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % ----------------
+        % Upstream region.
+        % ----------------
+        
+        % upstream Mach number
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](-2.5,0)--(-0.5,0)
+            node[anchor=north,pos=0.5,yshift=-5]{$M_{1}>1$}
+        ;
+        
+        % upstream flow properties
+        \node[align=center,gray]at(-2,2){$T_{1}$\\$P_{1}$\\$\rho_{1}$\\$a_{1}$\\$h_{1}$\\$u_{1}$\\$s_{1}$};
+        \node[align=center,gray]at(-1,2){$T_{t1}$\\$P_{t1}$\\$\rho_{t1}$\\$a_{t1}$\\$h_{t1}$\\{}\\{}};
+        
+        % upstream label (circled 1)
+        \node[align=center]at(-2,-1.5){\circled{1}\\\textit{upstream condition}};
+        
+        % -------------
+        % Normal shock.
+        % -------------
+        
+        % left side of shock
+        \draw(-0.05,-2.5)--(-0.05,4);
+        
+        % right side of shock
+        \draw(0.05,-2.5)--(0.05,4)
+            node[anchor=north,pos=0,xshift=-2,yshift=-2]{normal shock}
+        ;
+        
+        % ------------------
+        % Downstream region.
+        % ------------------
+        
+        % downstream Mach number
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](0.5,0)--(2.5,0)
+            node[anchor=north,pos=0.5,yshift=-5]{$M_{2}<1$}
+        ;
+        
+        % downstream flow properties
+        \node[align=center,gray]at(1.4,2){$T_{2}>T_{1}$\\$P_{2}>P_{1}$\\$\rho_{2}>\rho_{1}$\\$a_{2}>a_{1}$\\$h_{2}>a_{1}$\\$u_{2}<u_{1}$\\$s_{2}>s_{1}$};
+        \node[align=center,gray]at(3.4,2){$T_{t2}=T_{t1}$\\$P_{t2}<P_{t1}$\\$\rho_{t2}$\\$a_{t2}=a_{t1}$\\$h_{t2}=a_{t1}$\\{}\\{}};
+
+        % downstream label (circled 2)
+        \node[align=center]at(2,-1.5){\circled{2}\\\textit{downstream condition}};
+        
+    \end{tikzpicture}
+    
+\end{document}

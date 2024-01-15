@@ -1,0 +1,64 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % node spacing
+        \pgfmathsetmacro{\s}{1.5}
+        
+        % node radius
+        \pgfmathsetmacro{\r}{0.125}
+        
+        % base yshift for labels
+        \pgfmathsetmacro{\a}{6}
+        
+        % yshift for label with no operator
+        \pgfmathsetmacro{\b}{\a+1}
+        
+        % yshift for label with operator
+        \pgfmathsetmacro{\c}{\a}
+        
+        % query point
+        \pgfmathsetmacro{\xq}{0.75*\s}
+        
+        % nodes
+        \draw[fill=shade_color,thick](1*\s,0)circle(\r)node[above,yshift=\b]{$x_{1}$};
+        \draw[fill=shade_color,thick](2*\s,0)circle(\r)node[above,yshift=\b]{$x_{2}$};
+        \draw[fill=shade_color,thick](3*\s,0)circle(\r)node[above,yshift=\b]{$x_{3}$};
+        \draw[fill=shade_color,thick](5*\s,0)circle(\r)node[above,yshift=\c]{$x_{i-1}$};
+        \draw[fill=shade_color,thick](6*\s,0)circle(\r)node[above,yshift=\b]{$x_{i}$};
+        \draw[fill=shade_color,thick](7*\s,0)circle(\r)node[above,yshift=\c]{$x_{i+1}$};
+        \draw[fill=shade_color,thick](9*\s,0)circle(\r)node[above,yshift=\c]{$x_{N-2}$};
+        \draw[fill=shade_color,thick](10*\s,0)circle(\r)node[above,yshift=\c]{$x_{N-1}$};
+        \draw[fill=shade_color,thick](11*\s,0)circle(\r)node[above,yshift=\c]{$x_{N}$};
+        
+        % skipped nodes
+        \node[align=center]at(4*\s,0){$\cdots$};
+        \node[align=center]at(8*\s,0){$\cdots$};
+        
+        % arrow for query point
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xq,-1.5)--(\xq,-3*\r)node[pos=-0.3,color_theme]{$x_{q}$};
+        
+    \end{tikzpicture}
+
+\end{document}

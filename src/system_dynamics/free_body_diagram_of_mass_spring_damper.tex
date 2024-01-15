@@ -1,0 +1,40 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % mass
+        \draw[thick](-0.5,-0.75)rectangle(0.5,0.75)node[pos=0.5]{$m$};
+        
+        % spring force
+        \draw[-mylatex',/tiplen=0.25cm,thick](-0.5,0.45)--(-1.5,0.45)node[anchor=east,yshift=1]{$kx$};
+        
+        % damper force
+        \draw[-mylatex',/tiplen=0.25cm,thick](-0.5,-0.45)--(-1.5,-0.45)node[anchor=east,yshift=1]{$b\dot{x}$};
+        
+        % force
+        \draw[-mylatex',/tiplen=0.25cm,thick](0.5,0)--(1.5,0)node[anchor=west]{$F$};
+        
+    \end{tikzpicture}
+    
+\end{document}

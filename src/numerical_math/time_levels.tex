@@ -1,0 +1,86 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={
+        f1(\x)=\x/5-cos(deg(\x*1.85))/2;
+        f2(\x)=\x/5-cos(deg(\x*1.85))/2+1.5;
+    }]
+        
+        % axes
+        \draw(0,0)--(10,0)node[right]{$x$};
+        \draw(0,0)--(0,4)node[above]{$y$};
+        
+        % tick marks
+        \draw(4,0)--(4,-0.15)node[pos=1,below]{$x_{i-1}$};
+        \draw(5,0)--(5,-0.15)node[pos=1,below]{$x_{i}$};
+        \draw(6,0)--(6,-0.15)node[pos=1,below]{$x_{i+1}$};
+        
+        % ---------------
+        % Time level n.
+        % ---------------
+        
+        % plot of continuous function at time level n
+        \draw[domain=1:9,smooth,variable=\x,color_theme,thick]plot({\x},{f1(\x)})node[anchor=south,xshift=-10,yshift=3]{time level $n$};
+        
+        % dotted lines to points
+        \draw[dotted](4,0)--(4,{f1(4)});
+        \draw[dotted](5,0)--(5,{f1(5)});
+        \draw[dotted](6,0)--(6,{f1(6)});
+        
+        % sample points at time level n
+        \draw[fill=white,thick](1,{f1(1)})circle(0.075);
+        \draw[fill=white,thick](2,{f1(2)})circle(0.075);
+        \draw[fill=white,thick](3,{f1(3)})circle(0.075);
+        \draw[fill=white,thick](4,{f1(4)})circle(0.075)node[above,xshift=-7]{$f_{i-1}^{n}$};
+        \draw[fill=white,thick](5,{f1(5)})circle(0.075)node[above]{$f_{i}^{n}$};
+        \draw[fill=white,thick](6,{f1(6)})circle(0.075)node[above,xshift=7]{$f_{i+1}^{n}$};
+        \draw[fill=white,thick](7,{f1(7)})circle(0.075);
+        \draw[fill=white,thick](8,{f1(8)})circle(0.075);
+        \draw[fill=white,thick](9,{f1(9)})circle(0.075);
+        
+        % ---------------
+        % Time level n+1.
+        % ---------------
+        
+        % plot of continuous function at time level n+1
+        \draw[domain=1:9,smooth,variable=\x,color_theme,thick]plot({\x},{f2(\x)})node[anchor=south,xshift=-10,yshift=3]{time level $n+1$};
+        
+        % dotted lines to points
+        \draw[dotted](4,{f1(4)+0.75})--(4,{f2(4)});
+        \draw[dotted](5,{f1(5)+0.75})--(5,{f2(5)});
+        \draw[dotted](6,{f1(6)+0.75})--(6,{f2(6)});
+        
+        % sample points at time level n+1
+        \draw[fill=white,thick](1,{f2(1)})circle(0.075);
+        \draw[fill=white,thick](2,{f2(2)})circle(0.075);
+        \draw[fill=white,thick](3,{f2(3)})circle(0.075);
+        \draw[fill=white,thick](4,{f2(4)})circle(0.075)node[above,xshift=-7]{$f_{i-1}^{n+1}$};
+        \draw[fill=white,thick](5,{f2(5)})circle(0.075)node[above]{$f_{i}^{n+1}$};
+        \draw[fill=white,thick](6,{f2(6)})circle(0.075)node[above,xshift=7]{$f_{i+1}^{n+1}$};
+        \draw[fill=white,thick](7,{f2(7)})circle(0.075);
+        \draw[fill=white,thick](8,{f2(8)})circle(0.075);
+        \draw[fill=white,thick](9,{f2(9)})circle(0.075);
+        
+    \end{tikzpicture}
+
+\end{document}

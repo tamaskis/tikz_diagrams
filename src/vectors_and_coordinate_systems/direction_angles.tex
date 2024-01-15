@@ -1,0 +1,94 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/194639/draw-direction-cosines-using-tikz
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % -----------------------
+        % Oxyz coordinate system.
+        % -----------------------
+        
+        % origin
+        \node[below,xshift=1]at(0,0){$O$};
+        
+        % axes
+        \draw(0,0,0)--(5,0,0)node[pos=1.07]{$x$};
+        \draw(0,0,0)--(0,5,0)node[pos=1.03]{$y$};
+        \draw(0,0,0)--(0,0,5)node[pos=1.035]{$z$};
+        
+        % -----------
+        % Vector "a".
+        % -----------
+        
+        % define components
+        \pgfmathsetmacro{\ax}{3}
+        \pgfmathsetmacro{\ay}{3}
+        \pgfmathsetmacro{\az}{4}
+        
+        % half of radius of sphere at tip of vector (i.e. 0.5||a||)
+        \def\r{2.915}
+        
+        % vector
+        \draw[-mylatex',thick,color_theme](0,0,0)--(\ax,\ay,\az)node[pos=1.07]{$\mathbf{a}$};
+        
+        % components
+        \draw[dotted,color_theme](\ax,0,0)--(\ax,\ay,0)node[pos=0.5,below]{$a_{x}$};
+        \draw[dotted,color_theme](0,\ay,0)--(\ax,\ay,0)node[pos=0.6,right,xshift=6]{$a_{y}$};
+        \draw[dotted,color_theme](\ax,\ay,0)--(\ax,\ay,\az)node[pos=0.15,left,xshift=1]{$a_{z}$};
+        
+        % -------
+        % Angles.
+        % -------
+        
+        % alpha
+        \begin{scope}
+            \tdplotdefinepoints(0,0,0)(\r,0,0)(0.5*\ax,0.5*\ay,0.5*\az);
+            \draw[fill=color_theme,opacity=0.2](\r,0,0)--(0,0,0)--(\tdplotbx,\tdplotby,\tdplotbz);
+            \tdplotdrawpolytopearc[fill=color_theme,opacity=0.2]{\r}{}{};
+            \tdplotdrawpolytopearc[-mylatex',color_theme]{\r}{above,yshift=2,color_theme}{$\alpha$};
+        \end{scope}
+        
+        % beta
+        \begin{scope}
+            \tdplotdefinepoints(0,0,0)(0,\r,0)(0.5*\ax,0.5*\ay,0.5*\az);
+            \draw[fill=color_theme,opacity=0.2](0,\r,0)--(0,0,0)--(\tdplotbx,\tdplotby,\tdplotbz);
+            \tdplotdrawpolytopearc[fill=color_theme,opacity=0.2]{\r}{}{};
+            \tdplotdrawpolytopearc[-mylatex',color_theme]{\r}{above,yshift=2,color_theme}{$\beta$};
+        \end{scope}
+        
+        % gamma
+        \begin{scope}
+            \tdplotdefinepoints(0,0,0)(0,0,\r)(0.5*\ax,0.5*\ay,0.5*\az);
+            \draw[fill=color_theme,opacity=0.2](0,0,\r)--(0,0,0)--(\tdplotbx,\tdplotby,\tdplotbz);
+            \tdplotdrawpolytopearc[fill=color_theme,opacity=0.2]{\r}{}{};
+            \tdplotdrawpolytopearc[-mylatex',color_theme]{\r}{above,xshift=4,yshift=-4,color_theme}{$\gamma$};
+        \end{scope}
+
+    \end{tikzpicture}
+
+\end{document}

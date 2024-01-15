@@ -1,0 +1,74 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/126019/drawing-a-plane-in-3d-space
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{110}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[scale=3,tdplot_main_coords]
+        
+        % plane
+        \filldraw[draw=color_theme,fill=shade_color](0,0,0)--(0,2,0)--(2,2,0)--(2,0,0)--cycle
+            node[anchor=west,xshift=100,yshift=-7,color_theme]{orbital plane}
+        ;
+        
+        % perpendicular symbols
+        \draw[thin](1.5,0.5,0)--(1.43,0.57,0)--(1.43,0.57,0.1)--(1.5,0.5,0.1)--cycle;
+        \draw[thin](1.5,0.5,0)--(1.5,0.6,0)--(1.5,0.6,0.1)--(1.5,0.5,0.1)--cycle;
+
+        % trajectory
+        \draw[dashed](1.5,1.65)arc(90:180:1.45);
+        \draw[dashed](1.5,1.65)arc(90:75:1.45);
+        
+        % satellite position
+        \draw[fill=black!10!white](0.5,1.25,0)circle(0.03)node[right,yshift=2,xshift=2]{satellite};
+
+        % position vector
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](1.5,0.5,0)--(0.5,1.25,0)node[anchor=west,xshift=-25,yshift=2]{$\boldsymbol{r}$};
+        
+        % P basis vector
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(1.5,1.4,0)node[pos=0.95,yshift=-8]{$\boldsymbol{\hat{P}}$};
+
+        % Q basis vector
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(0.3,0.5,0)node[pos=0.9,left,xshift=-5]{$\boldsymbol{\hat{Q}}$};
+
+        % W basis vector
+        \draw[-mylatex',thick,/tiplen=0.3cm](1.5,0.5,0)--(1.5,0.5,0.8)node[pos=1,above]{$\boldsymbol{\hat{W}}$};
+        
+        % dotted line to periapsis
+        \draw[dotted](1.5,1)--(1.5,1.65);
+        
+        % true anomaly
+        \draw[-latex',color_theme](1.5,1.1)arc(90:143:0.6)node[pos=0.6,xshift=-1,right,color_theme]{$\nu$};
+        
+        % periapsis
+        \filldraw[color_theme,fill=color_theme](1.5,1.65,0)circle(0.025);
+        
+        % periapsis label
+        \draw[thin,color_theme](1.5,1.7,0)--(1.45,2.3,0)node[anchor=west,xshift=0,yshift=0,color_theme]{periapsis};
+        
+    \end{tikzpicture}
+
+\end{document}

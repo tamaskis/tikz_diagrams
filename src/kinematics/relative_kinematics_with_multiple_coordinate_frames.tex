@@ -1,0 +1,76 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % origin
+        \node[xshift=5,yshift=-7]at(0,0){$O$};
+
+        % frame labels
+        \node[]at(0,-1,0){$\mathcal{A}$, \textcolor{color_theme}{$\mathcal{B}$}};
+        
+        % particle P
+        \node[draw=none,shape=circle,fill,inner sep=1.75pt](d1)at(3,3,6){};
+        \node[xshift=3,yshift=9]at(3,3,6){$P$};
+
+        % position vector for P
+        \draw[-mylatex',thick](0,0,0)--(2.95,2.95,5.9)node[pos=0.8,xshift=-7,yshift=5]{$\boldsymbol{r}_{P}$};
+
+        % particle Q
+        \node[draw=none,shape=circle,fill,inner sep=1.75pt](d1)at(3,6,3){};
+        \node[xshift=9]at(3,6,3){$Q$};
+
+        % position vector for Q
+        \draw[-mylatex',thick](0,0,0)--(2.95,5.9,2.95)node[pos=0.8,yshift=-8]{$\boldsymbol{r}_{Q}$};
+
+        % position of P relative to Q
+        \draw[-mylatex',thick](3,6,3)--(2.8,2.9,5.88)node[pos=0.75,xshift=15]{$\boldsymbol{r}_{P/Q}$};
+        
+        % angular velocity vector
+        \draw[-mylatex',thick,color_theme](0,0,0)--(4.5,4.5,4.5)node[pos=1.05,xshift=-5,yshift=5]{${}^{\mathcal{B}/\mathcal{A}}\boldsymbol{\omega}$};
+            
+        % circular arrow representing rotation
+        \tdplotsetrotatedcoords{45}{45}{0}
+        \begin{scope}[tdplot_rotated_coords]
+            \tdplotdrawarc[->,color_theme]{(-2,2.4,-1.2)}{0.25}{-180}{50}{below,xshift=5,yshift=-2}{};
+        \end{scope}
+            
+        % Oxyz coordinate system
+        \draw(0,0,0)--(5,0,0)node[pos=1.09]{$x$};
+        \draw(0,0,0)--(0,5,0)node[pos=1.05]{$y$};
+        \draw(0,0,0)--(0,0,5)node[pos=1.05]{$z$};
+        
+        % Oabc coordinate system.
+        \tdplotsetrotatedcoords{15}{35}{0}
+        \begin{scope}[tdplot_rotated_coords]
+            \draw[color_theme](0,0,0)--(5,0,0)node[pos=1.05]{$a$};
+            \draw[color_theme](0,0,0)--(0,5,0)node[pos=1.04,yshift=1]{$b$};
+            \draw[color_theme](0,0,0)--(0,0,5)node[pos=1.08]{$c$};
+        \end{scope}
+        
+    \end{tikzpicture}
+
+\end{document}

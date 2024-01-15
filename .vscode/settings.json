@@ -1,0 +1,8 @@
+{
+    // general settings
+    "editor.tabSize": 4,
+    // clean LaTeX auxiliary files after builds
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    // turn off autocompilation on save
+    "latex-workshop.latex.autoBuild.run": "never",
+}

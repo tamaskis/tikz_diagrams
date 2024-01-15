@@ -1,0 +1,73 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/13933/drawing-mechanical-systems-in-latex
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % ----------------------------------
+        % Defining spring and damper styles.
+        % ----------------------------------
+        
+        % defines spring style
+        \tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+        
+        % defines damper style
+        \tikzstyle{damper}=[thick,decoration={markings,mark connection node=dmp,mark=at position 0.5 with{\node(dmp)[thick,inner sep=0,transform shape,rotate=-90,minimum width=15,minimum height=3,draw=none]{};\draw[thick]($(dmp.north east)+(2pt,0)$)--(dmp.south east)--(dmp.south west)--($(dmp.north west)+(2pt,0)$);\draw[thick]($(dmp.north)+(0,-5pt)$)--($(dmp.north)+(0,5pt)$);}},decorate]
+        
+        % --------
+        % Drawing.
+        % --------
+
+        % masses 1 and 2
+        \draw[thick](0,0)rectangle(1,1.5)node[pos=0.5]{$m_{1}$};
+        \draw[thick](3,0)rectangle(4,1.5)node[pos=0.5]{$m_{2}$};
+        
+        % spring 1 (between mass 1 and wall)
+        \draw[spring](-2,1.2)--(0,1.2)node[pos=0.5,yshift=10]{$k_{1}$};
+        
+        % damper (between mass 1 and wall)
+        \draw[damper](-2,0.3)--(0,0.3)node[pos=0.5,yshift=-15]{$b$};
+        
+        % spring 2 (between two masses)
+        \draw[spring](1,0.75)--(3,0.75)node[pos=0.5,yshift=10]{$k_{2}$};
+        
+        % wall
+        \draw[fill,pattern=north east lines,draw=none](-2.25,-1)--(-2,-1)--(-2,2.5)--(-2.25,2.5)--cycle;
+        \draw(-2,-1)--(-2,2.5);
+        
+        % force
+        \draw[-mylatex',/tiplen=0.25cm,thick](4,0.75)--(5,0.75)node[anchor=south,xshift=10,yshift=-9]{$F(t)$};
+        
+        % mass 1 coordinate (x1)
+        \draw(0.5,1.6)--(0.5,2.1);
+        \draw[-mylatex',/tiplen=0.15cm](0.5,2.1)--(1.25,2.1)node[anchor=south,xshift=7,yshift=-7]{$x_{1}$};
+        
+        % mass 2 coordinate (x2)
+        \draw(3.5,1.6)--(3.5,2.1);
+        \draw[-mylatex',/tiplen=0.15cm](3.5,2.1)--(4.25,2.1)node[anchor=south,xshift=7,yshift=-7]{$x_{2}$};
+        
+    \end{tikzpicture}
+    
+\end{document}

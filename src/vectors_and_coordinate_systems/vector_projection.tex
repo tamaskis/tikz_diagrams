@@ -1,0 +1,43 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % vector a
+        \draw[-mylatex',thick](0,0)--(2.5,0)node[pos=1.05]{$\mathbf{a}$};
+
+        % vector b
+        \draw[-mylatex',thick](0,0)--(1.5,1.5)node[pos=1.1]{$\mathbf{b}$};
+        
+        % projection of b onto a
+        \draw[-mylatex',thick,color_theme](0,0)--(1.5,0)node[pos=0.5,below]{$\mathrm{proj}_{\mathbf{a}}\mathbf{b}$};
+        
+        % dotted line
+        \draw[dotted,color_theme,thick](1.5,0)--(1.5,1.5);
+        
+        % right angle
+        \draw(1.7,0)--(1.7,0.2)--(1.5,0.2);
+        
+    \end{tikzpicture}
+
+\end{document}

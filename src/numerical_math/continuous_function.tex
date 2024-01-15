@@ -1,0 +1,35 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={f(\x)=\x/5-cos(deg(\x*1.85))/2+1;}]
+        
+        % axes
+        \draw(0,0)--(10,0)node[right]{$x$};
+        \draw(0,0)--(0,4)node[above]{$y$};
+        
+        % plot of continuous time function
+        \draw[domain=1:9,smooth,variable=\x,color_theme,thick]plot({\x},{f(\x)})node[anchor=south,xshift=-20,pin=90:{$y=f(x)$}]{};
+        
+    \end{tikzpicture}
+
+\end{document}

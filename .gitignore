@@ -1,0 +1,35 @@
+# stores macOS folder attributes
+.DS_Store
+
+# automatically produced by pdflatex
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# automatically produced by TikZ externalization
+*.auxlock
+*.dpth
+*.md5
+
+# output files
+pdf_outputs/
+eps_outputs/
+*.pdf
+*.eps
+
+# don't ignore tikz_diagrams.pdf
+!tikz_diagrams.pdf
+
+# don't ignore any files in src/.images/ by default
+!src/.images/*
+
+# ignore EPS files converted to PDF in src/.images/
+src/.images/*-eps-converted-to.pdf
+
+# don't ignore any files in src/.images/licenses/
+!src/.images/licenses/*

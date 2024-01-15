@@ -1,0 +1,64 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/118069/how-to-draw-an-euler-angle-rotation-sequence-with-tikz
+%   [2] https://tex.stackexchange.com/questions/218354/i-want-to-draw-a-dot-small-sphere-in-a-tikz-3d-plot
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{140}
+
+    % change rotation matrix to use 3-2-1 sequence
+    \tdseteulerxyz
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+
+        % axes length
+        \pgfmathsetmacro{\axlen}{3}
+        
+        % world axes
+        \draw[thick](0,0,0)--(\axlen,0,0)node[pos=1.1]{$x_{w}$};
+        \draw[thick](0,0,0)--(0,\axlen,0)node[pos=1.12]{$y_{w}$};
+        \draw[thick](0,0,0)--(0,0,\axlen)node[pos=1.08]{$z_{w}$};
+
+        % rotation angles [deg]
+        \pgfmathsetmacro{\zRot}{170}
+        \pgfmathsetmacro{\yRot}{-10}
+        \pgfmathsetmacro{\xRot}{180}
+        
+        % body frame origin
+        \pgfmathsetmacro{\Ox}{5}
+        \pgfmathsetmacro{\Oy}{-3}
+        \pgfmathsetmacro{\Oz}{0}
+            
+        % rotates TikZ's coordinate system to align with body frame
+        \tdplotsetrotatedcoords{\zRot}{\yRot}{\xRot}
+        
+        % body axes
+        \draw[tdplot_rotated_coords,color_theme,thick](\Ox,\Oy,\Oz)--(\Ox+\axlen,\Oy,\Oz)node[pos=1.08]{$x_{b}$};
+        \draw[tdplot_rotated_coords,color_theme,thick](\Ox,\Oy,\Oz)--(\Ox,\Oy+\axlen,\Oz)node[pos=1.12]{$y_{b}$};
+        \draw[tdplot_rotated_coords,color_theme,thick](\Ox,\Oy,\Oz)--(\Ox,\Oy,\Oz+\axlen)node[pos=1.08]{$z_{b}$};
+
+    \end{tikzpicture}
+
+\end{document}

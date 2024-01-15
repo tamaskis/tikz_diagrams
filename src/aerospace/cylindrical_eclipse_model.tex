@@ -1,0 +1,85 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % constants
+        \pgfmathsetmacro{\rBody}{2}                 % central body radius
+        \pgfmathsetmacro{\rOrbit}{3}                % orbit radius
+        \pgfmathsetmacro{\piConst}{3.14159}         % pi
+        \pgfmathsetmacro{\rSatCircle}{0.1}          % satellite marker size
+        
+        % satellite position in perifocal frame
+        \pgfmathsetmacro{\satX}{\rOrbit*cos(30)}
+        \pgfmathsetmacro{\satY}{\rOrbit*sin(30)}
+        
+        % perpendicular vector
+        \pgfmathsetmacro{\perpX}{\satX}
+        \pgfmathsetmacro{\perpY}{\satY-\rSatCircle}
+        
+        % satellite position vector
+        \pgfmathsetmacro{\rSatX}{\satX-\rSatCircle*cos(30)}
+        \pgfmathsetmacro{\rSatY}{\satY-\rSatCircle*sin(30)}
+
+        % --------
+        % Drawing.
+        % --------
+        
+        % shadow
+        \fill[gray!20](0,-\rBody)rectangle(2.5*\rBody,\rBody);
+        
+        % Earth
+        \draw[thick,fill=white](0,0)circle(\rBody);
+        \draw[-mylatex',/tiplen=0.3cm](0,0)--(-1.41421,1.41421)node[pos=0.5,fill=white]{$R$};
+        
+        % satellite orbit
+        \draw[thick,dotted](0,0)circle(\rOrbit);
+
+        % origin
+        \draw[color_theme,fill=color_theme](0,0)circle(0.05);
+        
+        % satellite
+        \draw[black,fill=white](\satX,\satY)circle(\rSatCircle)node[black,above right]{satellite};
+        
+        % satellite position vector
+        \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](0,0)--(\rSatX,\rSatY)node[pos=0.8,above]{$\boldsymbol{r}$};
+        
+        % parallel vector
+        \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](0,0)--(\satX,0)node[midway,below=1]{$\boldsymbol{r}_{\parallel}$};
+        
+        % perpendicular vector
+        \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](\satX,0)--(\satX,\satY-\rSatCircle)node[midway,xshift=-8]{$\boldsymbol{r}_{\perp}$};
+        
+        % Sun position vector
+        \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,orange](0,0)--(-5,0)node[pos=0.8,above]{$\boldsymbol{r}_{\odot}$};
+        
+        % origin
+        \draw[color_theme,fill=color_theme](0,0)circle(0.07);
+
+    \end{tikzpicture}
+
+\end{document}

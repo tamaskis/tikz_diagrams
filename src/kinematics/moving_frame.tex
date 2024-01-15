@@ -1,0 +1,84 @@
+% References:
+%   [1] https://tex.stackexchange.com/questions/118069/how-to-draw-an-euler-angle-rotation-sequence-with-tikz
+%   [2] https://tex.stackexchange.com/questions/218354/i-want-to-draw-a-dot-small-sphere-in-a-tikz-3d-plot
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+    
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{140}
+    
+    % change rotation matrix to use 3-2-1 sequence
+    \tdseteulerxyz
+    
+    % -----------------
+    % TikZ environment.
+    % -----------------
+    
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+    
+        % axes length
+        \pgfmathsetmacro{\axlen}{3}
+        
+        % frame A axes
+        \draw[thick](0,0,0)--(\axlen,0,0)node[pos=1.1]{$x$};
+        \draw[thick](0,0,0)--(0,\axlen,0)node[pos=1.12]{$y$};
+        \draw[thick](0,0,0)--(0,0,\axlen)node[pos=1.08]{$z$};
+    
+        % frame A origin
+        \node[xshift=-1,yshift=-7]at(0,0){$O$};
+    
+        % frame A label
+        \node[]at(0,-1,0){$\mathcal{A}$};
+    
+        % rotation angles [deg]
+        \pgfmathsetmacro{\zRot}{170}
+        \pgfmathsetmacro{\yRot}{-10}
+        \pgfmathsetmacro{\xRot}{180}
+        
+        % frame B origin
+        \pgfmathsetmacro{\Ox}{5}
+        \pgfmathsetmacro{\Oy}{-3}
+        \pgfmathsetmacro{\Oz}{0}
+            
+        % rotates TikZ's coordinate system to align with body frame
+        \tdplotsetrotatedcoords{\zRot}{\yRot}{\xRot}
+        
+        % frame B axes
+        \draw[tdplot_rotated_coords,thick,color_theme](\Ox,\Oy,\Oz)--(\Ox+\axlen,\Oy,\Oz)node[pos=1.08]{$a$};
+        \draw[tdplot_rotated_coords,thick,color_theme](\Ox,\Oy,\Oz)--(\Ox,\Oy+\axlen,\Oz)node[pos=1.12]{$b$};
+        \draw[tdplot_rotated_coords,thick,color_theme](\Ox,\Oy,\Oz)--(\Ox,\Oy,\Oz+\axlen)node[pos=1.08]{$c$};
+    
+        % frame B origin
+        \node[xshift=2,yshift=7,tdplot_rotated_coords,color_theme]at(\Ox,\Oy,\Oz){$O'$};
+    
+        % frame B label
+        \node[tdplot_rotated_coords,color_theme]at(\Ox+1,\Oy+1,\Oz){$\mathcal{B}$};
+    
+        % frame B origin in frame A coordinates
+        \pgfmathsetmacro{\OxA}{-5.370176084965562}
+        \pgfmathsetmacro{\OyA}{-2.099372900722452}
+        \pgfmathsetmacro{\OzA}{0.868240888334651}
+        
+        % position of frame B w.r.t. frame A
+        \draw[-mylatex',gray](0,0,0)--(\OxA,\OyA,\OzA)node[pos=0.5,xshift=17]{\textcolor{gray}{$\boldsymbol{r}_{\mathcal{B}/\mathcal{A}}$}};
+        
+    \end{tikzpicture}    
+
+\end{document}

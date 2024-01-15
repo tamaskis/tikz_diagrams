@@ -1,0 +1,78 @@
+% References:
+%   [1] https://latexdraw.com/draw-a-sphere-in-latex-using-tikz/
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{60}{115}
+    
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=4]
+        
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % raw parameters
+        \def\r{0.5}         % sphere radius
+        \def\rot{50}        % rotation angle [deg]
+        \def\scale{2.5}     % axis scale
+        
+        % derived parameters
+        \def\I{\scale*\r}   % I-axis
+        \def\J{\scale*\r}   % J-axis
+        \def\K{\scale*\r}   % K-axis
+        \def\Ib{0.6*\I}     % I basis vector
+        \def\Jb{0.6*\J}  % J basis vector
+        \def\Kb{0.6*\K}  % K basis vector
+        
+        % --------
+        % Drawing.
+        % --------
+        
+        % shaded sphere
+        \draw[tdplot_screen_coords,fill=gray,opacity=0.1](0,0,0)circle(\r);
+        
+        % sphere border
+        \draw[tdplot_screen_coords,thin,black!30](0,0,0)circle(\r);
+        
+        % coordinate axes
+        \draw[color_theme](0,0,0)--(\I,0,0)node[pos=1.05,xshift=-2,yshift=-3]{$I$};
+        \draw[color_theme](0,0,0)--(0,\J,0)node[pos=1.05]{$J$};
+        \draw[color_theme](0,0,0)--(0,0,\K)node[pos=1.05]{$K$};
+
+        % basis vectors
+        \draw[-mylatex',thick,color_theme](0,0,0)--(\Ib,0,0)node[pos=1.05,xshift=10]{$\boldsymbol{\hat{I}}$};
+        \draw[-mylatex',thick,color_theme](0,0,0)--(0,\Jb,0)node[pos=0.95,yshift=10]{$\boldsymbol{\hat{J}}$};
+        \draw[-mylatex',thick,color_theme](0,0,0)--(0,0,\Kb)node[pos=1,xshift=8]{$\boldsymbol{\hat{K}}$};
+        
+        % approximate equatorial plane
+        \tdplotCsDrawLatCircle[tdplotCsFill/.style={opacity=0.1}]{\r}{0};
+        \draw(0.8*\r,-0.4*\r,0*\r)--(1.1*\r,-1.2*\r,-0.5*\r)node[pos=1.05,left,align=right,xshift=3,yshift=-7]{\textit{approximate} equatorial\\plane};
+
+        % reference line of longitude
+        \tdplotCsDrawCircle[thin,black!50]{\r}{-45}{90}{0}
+        
+    \end{tikzpicture}
+
+\end{document}

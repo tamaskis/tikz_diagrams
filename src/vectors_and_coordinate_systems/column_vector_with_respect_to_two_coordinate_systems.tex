@@ -1,0 +1,82 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % origin
+        \node[xshift=5,yshift=-7]at(0,0){$O$};
+        
+        % ----------------
+        % Physical vector.
+        % ----------------
+        
+        % define components
+        \pgfmathsetmacro{\vone}{4}
+        \pgfmathsetmacro{\vtwo}{4.5}
+        \pgfmathsetmacro{\vthree}{3}
+        
+        % vector
+        \draw[-mylatex',thick,color_theme](0,0,0)--(\vone,\vtwo,\vthree)node[pos=0.75,above]{$\mathbf{v}$};
+        
+        % --------------------------
+        % Ox1x2x3 coordinate system.
+        % --------------------------
+        
+        % axes
+        \draw(0,0,0)--(5,0,0)node[pos=1.12]{$x_{1}$};
+        \draw(0,0,0)--(0,5,0)node[pos=1.06]{$x_{2}$};
+        \draw(0,0,0)--(0,0,5)node[pos=1.07]{$x_{3}$};
+        
+        % basis vectors
+        \draw[-mylatex',thick](0,0,0)--(2.5,0,0)node[above,xshift=-2]{$\mathbf{\hat{x}}_{1}$};
+        \draw[-mylatex',thick](0,0,0)--(0,2.5,0)node[below,xshift=-5]{$\mathbf{\hat{x}}_{2}$};
+        \draw[-mylatex',thick](0,0,0)--(0,0,2.5)node[right]{$\mathbf{\hat{x}}_{3}$};
+        
+        % --------------------------
+        % Oy1y2y3 coordinate system.
+        % --------------------------
+        
+        % rotates TikZ's coordinate system by 15 deg about 3rd axis then 30 deg about 2nd axis
+        \tdplotsetrotatedcoords{15}{35}{0}
+        
+        
+        \begin{scope}[tdplot_rotated_coords]
+            
+            % axes
+            \draw[dotted](0,0,0)--(5,0,0)node[pos=1.12,yshift=3]{$y_{1}$};
+            \draw[dotted](0,0,0)--(0,5,0)node[pos=1.06,xshift=-1,yshift=1]{$y_{2}$};
+            \draw[dotted](0,0,0)--(0,0,5)node[pos=1.07,xshift=-1]{$y_{3}$};
+            
+            % basis vectors
+            \draw[-mylatex',dotted,thick](0,0,0)--(2.5,0,0)node[left]{$\mathbf{\hat{y}}_{1}$};
+            \draw[-mylatex',dotted,thick](0,0,0)--(0,2.5,0)node[above]{$\mathbf{\hat{y}}_{2}$};
+            \draw[-mylatex',dotted,thick](0,0,0)--(0,0,2.5)node[left]{$\mathbf{\hat{y}}_{3}$};
+        
+        \end{scope}
+        
+    \end{tikzpicture}
+
+\end{document}

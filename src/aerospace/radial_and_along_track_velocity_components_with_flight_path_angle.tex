@@ -1,0 +1,68 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % central body
+        \draw[fill=gray!20!white](0,0)circle(2)node[below,yshift=-10]{\textit{central body}};
+
+        % position vector
+        \draw[-mylatex',thick](0,0)--(2.93,2.93)node[pos=0.55,above,yshift=1]{$\boldsymbol{r}$};
+        
+        % center of central body
+        \draw[fill=black](0,0)circle(0.075);
+
+        % local vertical
+        \draw[dotted,thick](3,3)--(5,5)node[pos=0.75,above,rotate=45]{local vertical};
+        
+        % local horizontal
+        \draw[dotted,thick](5,1)--(1,5)node[pos=0.25,below,rotate=-45]{local horizontal};
+
+        % velocity vector
+        \draw[-mylatex',thick](3,3)--(2.4824,4.9319)node[pos=1,above]{$\boldsymbol{v}$};
+        
+        % along-track component
+        \draw[-mylatex',thick,color_theme](3,3)--(1.7753,4.2247)node[pos=0.75,below,xshift=-18,yshift=-5]{$v_{S}\boldsymbol{\hat{S}}=r\dot{\nu}\boldsymbol{\hat{S}}$};
+
+        % radial component
+        \draw[-mylatex',thick,color_theme](3,3)--(3.7071,3.7071)node[pos=1,below,xshift=17,yshift=-2]{$v_{R}\boldsymbol{\hat{R}}=\dot{r}\boldsymbol{\hat{R}}$};
+
+        % line of apsides
+        \draw[dotted,thick](0,0)--(4,0)node[pos=1,right]{line of apsides};
+
+        % true anomaly
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0)}{3}{0}{45}{right}{$\nu$};
+
+        % component lines
+        \draw[dotted](1.7753,4.2247)--(2.4824,4.9319);
+        \draw[dotted](3.7071,3.7071)--(2.4824,4.9319);
+        
+        % satellite position
+        \draw[fill=shade_color](3,3)circle(0.1);
+        
+        % flight path angle
+        \tdplotdrawarc[-mylatex']{(3,3)}{1}{135}{104.04}{above,xshift=-6,yshift=-2}{$\gamma$};
+        
+    \end{tikzpicture}
+
+\end{document}

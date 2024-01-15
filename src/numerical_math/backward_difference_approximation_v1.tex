@@ -1,0 +1,67 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={
+        f(\x)=\x/5-cos(deg(\x*1.85))/2+1.5;
+        xa=4;
+        xb=5;
+        g(\x)=f(xa)+((f(xb)-f(xa))/(xb-xa))*(\x-xa);
+    }]
+        
+        % plots function from x = 1 to x = 9
+        \draw[smooth,samples=100,domain=1:9,thick,color_theme]plot(\x,{f(\x)})node[anchor=south,xshift=-10,yshift=3]{$y=f(x)$};
+        
+        % draws axes
+        \draw(0,0)--(10,0)node[pos=1,xshift=5]{$x$};
+        \draw(0,0)--(0,5)node[pos=1,yshift=5]{$y$};
+        
+        % plots secant line for forward difference approximation
+        \draw[smooth,samples=100,domain=(xa-0.5):(xb+0.5),dashed,thick]plot(\x,{g(\x)});
+        
+        % evaluates function at evaluation points
+        \pgfmathsetmacro{\fa}{f(xa)};
+        \pgfmathsetmacro{\fb}{f(xb)};
+        
+        % dotted lines to evaluation points
+        \draw[dotted](xa,0)--(xa,\fa);
+        \draw[dotted](xb,0)--(xb,\fb);
+        
+        % tick marks on x-axis
+        \draw(xa,0)--(xa,-0.15);
+        \draw(xb,0)--(xb,-0.15);
+        
+        % x-axis labels
+        \node at(xa,-0.35){$x_{0}-h$};
+        \node at(xb,-0.4){$x_{0}$};
+        
+        % plots evaluation points
+        \draw[black,fill=white,thick](xa,\fa)circle(0.08)node[black,above,xshift=-10,yshift=18]{$f(x_{0}-h)$};
+        \draw[black,fill=white,thick](xb,\fb)circle(0.08)node[black,above,yshift=18]{$f(x_{0})$};
+        
+        % lines from evaluation points to labels
+        \draw[gray](xa,\fa+0.12)--(xa,\fa+0.7);
+        \draw[gray](xb,\fb+0.12)--(xb,\fb+0.7);
+        
+    \end{tikzpicture}
+
+\end{document}

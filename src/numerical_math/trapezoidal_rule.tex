@@ -1,0 +1,65 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={f(\x)=\x/5-cos(deg(\x*1.85))/2+1;}]
+        
+        % axes
+        \draw(0,0)--(10,0)node[right]{$x$};
+        \draw(0,0)--(0,4)node[above]{$y$};
+        
+        % trapezoids
+        \draw[fill=color_theme!15](1,0)--(2,0)--(2,{f(2)})--(1,{f(1)})--cycle;
+        \draw[fill=color_theme!15](2,0)--(3,0)--(3,{f(3)})--(2,{f(2)})--cycle;
+        \draw[fill=color_theme!15](3,0)--(4,0)--(4,{f(4)})--(3,{f(3)})--cycle;
+        \draw[fill=color_theme!15](4,0)--(5,0)--(5,{f(5)})--(4,{f(4)})--cycle;
+        \draw[fill=color_theme!15](5,0)--(6,0)--(6,{f(6)})--(5,{f(5)})--cycle;
+        \draw[fill=color_theme!15](6,0)--(7,0)--(7,{f(7)})--(6,{f(6)})--cycle;
+        \draw[fill=color_theme!15](7,0)--(8,0)--(8,{f(8)})--(7,{f(7)})--cycle;
+        \draw[fill=color_theme!15](8,0)--(9,0)--(9,{f(9)})--(8,{f(8)})--cycle;
+        
+        % tick marks
+        \draw(1,0)--(1,-0.15)node[pos=1,below,xshift=-4]{$x_{1}=a$};
+        \draw(2,0)--(2,-0.15)node[pos=1,below]{$x_{2}$};
+        \draw(4,0)--(4,-0.15)node[pos=1,below]{$x_{i-1}$};
+        \draw(5,0)--(5,-0.15)node[pos=1,below]{$x_{i}$};
+        \draw(6,0)--(6,-0.15)node[pos=1,below]{$x_{i+1}$};
+        \draw(8,0)--(8,-0.15)node[pos=1,below]{$x_{N}$};
+        \draw(9,0)--(9,-0.15)node[pos=1,below,xshift=6,yshift=2.5]{$x_{N+1}=b$};
+        
+        % plot of continuous function
+        \draw[domain=1:9,smooth,variable=\x,color_theme,thick]plot({\x},{f(\x)})node[anchor=south,xshift=-10,yshift=3]{$y=f(x)$};
+        
+        % sample points
+        \draw[fill=white,thick](1,{f(1)})circle(0.075);
+        \draw[fill=white,thick](2,{f(2)})circle(0.075);
+        \draw[fill=white,thick](3,{f(3)})circle(0.075);
+        \draw[fill=white,thick](4,{f(4)})circle(0.075)node[above,xshift=-7]{$y_{i-1}$};
+        \draw[fill=white,thick](5,{f(5)})circle(0.075)node[above]{$y_{i}$};
+        \draw[fill=white,thick](6,{f(6)})circle(0.075)node[above,xshift=7]{$y_{i+1}$};
+        \draw[fill=white,thick](7,{f(7)})circle(0.075);
+        \draw[fill=white,thick](8,{f(8)})circle(0.075);
+        \draw[fill=white,thick](9,{f(9)})circle(0.075);
+        
+    \end{tikzpicture}
+
+\end{document}

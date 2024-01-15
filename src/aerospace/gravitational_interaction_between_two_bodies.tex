@@ -1,0 +1,87 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % ----------
+        % Constants.
+        % ----------
+
+        % point radius
+        \pgfmathsetmacro{\rp}{0.025}
+
+        % arrow proportion
+        \pgfmathsetmacro{\ap}{0.35}
+
+        % -----------------
+        % Body definitions.
+        % -----------------
+        
+        % body 1
+        \pgfmathsetmacro{\xj}{0}
+        \pgfmathsetmacro{\yj}{0}
+        \pgfmathsetmacro{\rj}{0.3}
+
+        % body 2
+        \pgfmathsetmacro{\xk}{5}
+        \pgfmathsetmacro{\yk}{2}
+        \pgfmathsetmacro{\rk}{0.5}
+
+        % -------------
+        % Draws bodies.
+        % -------------
+        
+        % bodies
+        \draw[fill=shade_color,thick](\xj,\yj)circle(\rj)node[above,yshift=7]{$m_{1}$};
+        \draw[fill=shade_color,thick](\xk,\yk)circle(\rk)node[above,yshift=13]{$m_{2}$};
+
+        % centers
+        \draw[fill=black](\xj,\yj)circle(\rp);
+        \draw[fill=black](\xk,\yk)circle(\rp);
+
+        % ---------------------------
+        % Draws gravitational forces.
+        % ---------------------------
+
+        % dotted line
+        \draw[dotted,color_theme,thick](\xj,\yj)--(\xk,\yk);
+
+        % arrow coordinates from 2 to 1
+        \pgfmathsetmacro{\xsj}{\xj}
+        \pgfmathsetmacro{\xej}{\xj+\ap*(\xk-\xj)}
+        \pgfmathsetmacro{\ysj}{\yj}
+        \pgfmathsetmacro{\yej}{\yj+\ap*(\yk-\yj)}
+
+        % arrow coordinates from 2 to 1
+        \pgfmathsetmacro{\xsk}{\xk}
+        \pgfmathsetmacro{\xek}{\xk+\ap*(\xj-\xk)}
+        \pgfmathsetmacro{\ysk}{\yk}
+        \pgfmathsetmacro{\yek}{\yk+\ap*(\yj-\yk)}
+
+        % draws arrows
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xsj,\ysj)--(\xej,\yej)node[pos=0.95,above,xshift=-2,color_theme]{$\boldsymbol{F}_{12}$};
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xsk,\ysk)--(\xek,\yek)node[pos=0.95,above,xshift=-5,yshift=1,color_theme]{$\boldsymbol{F}_{21}$};
+
+    \end{tikzpicture}
+    
+\end{document}

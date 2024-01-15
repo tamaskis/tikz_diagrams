@@ -1,0 +1,64 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{115}
+    
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[tdplot_main_coords,scale=1]
+        
+        % origin
+        \node[xshift=5,yshift=-7]at(0,0){$O$};
+        
+        % principal vector
+        \draw[-mylatex',thick,color_theme](0,0,0)--(4.5,4.5,4.5)node[pos=1.05]{$\boldsymbol{e}$};
+        
+        % principal angle
+        \tdplotsetrotatedcoords{45}{45}{0}
+        \begin{scope}[tdplot_rotated_coords]
+            \tdplotdrawarc[->,color_theme]{(-2,2.4,-1.2)}{0.25}{-180}{50}{below,xshift=5,yshift=-2}{$\Phi$};
+        \end{scope}
+        
+        % Oxyz coordinate system
+        \draw(0,0,0)--(5,0,0)node[pos=1.09]{$x$};
+        \draw(0,0,0)--(0,5,0)node[pos=1.05]{$y$};
+        \draw(0,0,0)--(0,0,5)node[pos=1.05]{$z$};
+        
+        % Oabc coordinate system.
+        \tdplotsetrotatedcoords{15}{35}{0}
+        \begin{scope}[tdplot_rotated_coords]
+            \draw[color_theme](0,0,0)--(5,0,0)node[pos=1.07]{$a(t)$};
+            \draw[color_theme](0,0,0)--(0,5,0)node[pos=1.07]{$b(t)$};
+            \draw[color_theme](0,0,0)--(0,0,5)node[pos=1.08]{$c(t)$};
+        \end{scope}
+        
+        % Oa'b'c' coordinate system
+        \tdplotsetrotatedcoords{0}{30}{10}
+        \begin{scope}[tdplot_rotated_coords]
+            \draw[dotted,color_theme](0,0,0)--(5,0,0)node[pos=1,xshift=-23]{$a(t+\Delta t)$};
+            \draw[dotted,color_theme](0,0,0)--(0,5,0)node[pos=1.1,yshift=7]{$b(t+\Delta t)$};
+            \draw[dotted,color_theme](0,0,0)--(0,0,5)node[pos=1.06,xshift=-15]{$c(t+\Delta t)$};
+        \end{scope}
+        
+    \end{tikzpicture}
+
+\end{document}

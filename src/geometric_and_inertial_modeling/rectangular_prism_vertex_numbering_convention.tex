@@ -1,0 +1,74 @@
+% References:
+%   [1] https://nilesjohnson.net/tikz-demo.html
+
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    \tdplotsetmaincoords{70}{110}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}[scale=0.7,tdplot_main_coords]
+        
+        % sets dimensions
+        \pgfmathsetmacro{\a}{4}
+        \pgfmathsetmacro{\b}{5}
+        \pgfmathsetmacro{\c}{3}
+        \pgfmathsetmacro{\axislength}{5}
+        
+        % draws rectangular prism
+        \draw[style=dashed,color=gray](0,0,0)--(\a,0,0);
+        \draw[style=dashed,color=gray](0,0,0)--(0,\b,0);
+        \draw[style=dashed,color=gray](0,0,0)--(0,0,\c);
+        \draw(\a,0,0)--(\a,\b,0);
+        \draw(0,\b,0)--(\a,\b,0);
+        \draw(0,0,\c)--(\a,0,\c);
+        \draw(\a,0,0)--(\a,0,\c);
+        \draw(0,\b,0)--(0,\b,\c);
+        \draw(0,0,\c)--(0,\b,\c);
+        \draw(0,\b,\c)--(\a,\b,\c);
+        \draw(\a,0,\c)--(\a,\b,\c);
+        \draw(\a,\b,0)--(\a,\b,\c);
+        
+        % labels vertices
+        \node[right=5]at(\a/2-2,-\b/2,\c/2){$1$};
+        \node[right=28,above=10]at(\a/2,\b/2,\c/2){$2$};
+        \node[right=28,above=0]at(\a/2,-\b/2,-\c/2){$3$};
+        \node[right=34,above=-2]at(\a/2,\b/2,-\c/2){$4$};
+        \node[right=28,above=10]at(-\a/2,-\b/2,\c/2){$5$};
+        \node[right=35,above=10]at(-\a/2,\b/2,\c/2){$6$};
+        \node[right=28,above=10]at(-\a/2,-\b/2,-\c/2){$7$};
+        \node[right=36,above=-2]at(-\a/2,+\b/2,-\c/2){$8$};
+        
+        % draws body axes
+        \draw[color=red](\a/2,\b/2,\c/2)--(\a/2+\axislength,\b/2,\c/2)node[anchor=west,xshift=1]{$x_{i}$};
+        \draw[color=green](\a/2,\b/2,\c/2)--(\a/2,\b/2+\axislength,\c/2)node[anchor=south,color=green!75!black]{$y_{i}$};
+        \draw[color=blue](\a/2,\b/2,\c/2)--(\a/2,\b/2,\c/2+\axislength)node[anchor=west,xshift=-1]{$z_{i}$};
+        
+        % labels dimensions
+        \draw(\a/2,\b+0.4,0)node{$a_{i}$};
+        \draw(\a,\b/2,-0.4)node{$b_{i}$};
+        \draw(0,\b+0.4,\c/2)node{$c_{i}$};
+        
+    \end{tikzpicture}
+    
+\end{document}

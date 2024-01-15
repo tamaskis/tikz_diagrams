@@ -1,0 +1,58 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % left wall
+        \draw[thick](0,0)--(0,4)node[anchor=south]{$0$};
+        
+        % right wall
+        \draw[thick](2,0)--(2,4)node[anchor=south]{$L$};
+        
+        % left boundary of control volume
+        \draw[dashed](0.8,0)--(0.8,4)node[anchor=south]{$x$};
+        
+        % right boundary of control volume
+        \draw[dashed](1.2,0)--(1.2,4);
+        
+        % heat transfer in
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](-0.5,2)--(0.8,2)node[anchor=west,xshift=-52,yshift=0]{$q_{x}$};
+        
+        % heat transfer out
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](1.2,2)--(2.5,2)node[anchor=west,xshift=-1,yshift=1]{$q_{x}+dx$};
+        
+        % dimensioning lines
+        \draw(0.8,-0.5)--(0.8,-0.05);
+        \draw(1.2,-0.5)--(1.2,-0.05);
+        
+        % dimensioning arrows
+        \draw[-mylatex',/tiplen=0.2cm](0.3,-0.38)--(0.8,-0.38)node[anchor=west,xshift=-31,yshift=1]{$dx$};
+        \draw[-mylatex',/tiplen=0.2cm](1.7,-0.38)--(1.2,-0.38);
+        
+        % area label
+        \draw[black,fill=black](2,2.75)circle(.5ex);
+        \draw(2,2.75)--(2.75,3.5)node[anchor=west,xshift=-2,yshift=5]{$A_{s}$};
+
+    \end{tikzpicture}
+    
+\end{document}

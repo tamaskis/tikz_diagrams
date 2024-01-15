@@ -1,0 +1,58 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % axes
+        \draw(0,0)--(5,0)node[right]{$x$};
+        \draw(0,0)--(0,5)node[above]{$y$};
+
+        % origin label
+        \node[xshift=-5,yshift=-5]at(0,0){$O$};
+
+        % radial distance
+        \draw[dotted,thick](0,0)--(2.965,2.965);
+
+        % velocity vector
+        \draw[-mylatex',thick](3,3)--(2.4824,4.9319)node[pos=1,above]{$\boldsymbol{v}$};
+
+        % particle
+        \draw[fill=black](3,3)circle(0.05)node[right]{$P$};
+
+        % radial distance
+        \draw[color_theme,dotted,thick](0,0)--(2.965,2.965);
+        
+        % angle
+        \tdplotdrawarc[-mylatex',color_theme,dotted,thick]{(0,0)}{2}{0}{45}{right}{$\theta$};
+
+        % inertial frame
+        \draw[-mylatex',thick](0,0)--(2.5,0)node[pos=0.98,yshift=-6]{$\boldsymbol{\hat{x}}$};
+        \draw[-mylatex',thick](0,0)--(0,2.5)node[pos=1,xshift=6]{$\boldsymbol{\hat{y}}$};
+
+        % rotating frame
+        \draw[-mylatex',thick,color_theme](0,0)--(1.77,1.77)node[pos=0.9,yshift=8]{$\boldsymbol{\hat{r}}$};
+        \draw[-mylatex',thick,color_theme](0,0)--(-1.77,1.77)node[pos=1,xshift=12]{$\boldsymbol{\hat{\theta}}$};
+        
+    \end{tikzpicture}
+
+\end{document}

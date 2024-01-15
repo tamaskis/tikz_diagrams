@@ -1,0 +1,50 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % node spacing
+        \pgfmathsetmacro{\s}{2}
+        
+        % node radius
+        \pgfmathsetmacro{\r}{0.125}
+        
+        % yshift for labels
+        \pgfmathsetmacro{\a}{6}
+        
+        % query point
+        \pgfmathsetmacro{\xq}{4.5*\s}
+        
+        % nodes
+        \draw[fill=shade_color,thick](3*\s,0)circle(\r)node[above,yshift=\a]{$x_{1}=3$};
+        \draw[fill=shade_color,thick](4*\s,0)circle(\r)node[above,yshift=\a]{$x_{2}=4$};
+        \draw[fill=shade_color,thick](5*\s,0)circle(\r)node[above,yshift=\a]{$x_{3}=5$};
+        \draw[fill=shade_color,thick](6*\s,0)circle(\r)node[above,yshift=\a]{$x_{4}=6$};
+        \draw[fill=shade_color,thick](7*\s,0)circle(\r)node[above,yshift=\a]{$x_{5}=7$};
+        
+        % arrow for query point
+        \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](\xq,-1.5)--(\xq,-3*\r)node[pos=-0.3,color_theme]{$x_{q}=4.5$};
+        
+    \end{tikzpicture}
+
+\end{document}

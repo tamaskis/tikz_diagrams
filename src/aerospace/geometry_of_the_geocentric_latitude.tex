@@ -1,0 +1,36 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % triangle
+        \draw(0,0)--(4,0)node[pos=0.5,below]{$r_{XY}$};
+        \draw(4,0)--(4,2)node[pos=0.5,right]{$r_{Z}$};
+        \draw(4,2)--(0,0)node[pos=0.5,above]{$r$};
+
+        % geocentric latitude
+        \tdplotdrawarc[-mylatex',color_theme]{(0,0,0)}{2}{0}{26.5651}{right}{$\phi_{\mathrm{gc}}$};
+        
+    \end{tikzpicture}
+
+\end{document}

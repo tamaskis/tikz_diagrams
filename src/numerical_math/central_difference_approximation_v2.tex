@@ -1,0 +1,88 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % ------------------------------------------
+    % TikZ environment and function definitions.
+    % ------------------------------------------
+
+    \begin{tikzpicture}[declare function={
+        f(\x)=\x/5-cos(deg(\x*1.85))/2+1.5;
+        xa=4;
+        xb=5;
+        xc=6;
+        g1(\x)=f(xa)+((f(xc)-f(xa))/(xc-xa))*(\x-xa);
+        g2(\x)=f(xb)+((f(xc)-f(xa))/(xc-xa))*(\x-xb);
+    }]
+        % plots function from x = 1 to x = 9
+        \draw[smooth,samples=100,domain=1:9,thick,color_theme]plot(\x,{f(\x)})node[anchor=south,xshift=-10,yshift=3]{$y=f(x)$};
+        
+        % draws axes
+        \draw(0,0)--(10,0)node[pos=1,xshift=5]{$x$};
+        \draw(0,0)--(0,5)node[pos=1,yshift=5]{$y$};
+        
+        % plots secant line for forward difference approximation
+        \draw[smooth,samples=100,domain=(xa-0.5):(xc+0.5),dashed,thick]plot(\x,{g1(\x)});
+        
+        % plots tangent line for forward difference approximation
+        \draw[smooth,samples=100,domain=(xa+0.5):(xc-0.5),dashed,thick]plot(\x,{g2(\x)});
+        
+        % evaluates function at evaluation points
+        \pgfmathsetmacro{\fa}{f(xa)};
+        \pgfmathsetmacro{\fb}{f(xb)};
+        \pgfmathsetmacro{\fc}{f(xc)};
+        
+        % dotted lines to evaluation points
+        \draw[dotted](xa,0)--(xa,\fa);
+        \draw[dotted](xb,0)--(xb,\fb);
+        \draw[dotted](xc,0)--(xc,\fc);
+
+        % dotted lines to other points
+        \draw[dotted](1,0)--(1,{f(1)});
+        \draw[dotted](2,0)--(2,{f(2)});
+        \draw[dotted](3,0)--(3,{f(3)});
+        \draw[dotted](7,0)--(7,{f(7)});
+        \draw[dotted](8,0)--(8,{f(8)});
+        \draw[dotted](9,0)--(9,{f(9)});
+        
+        % tick marks on x-axis
+        \draw(xa,0)--(xa,-0.15);
+        \draw(xb,0)--(xb,-0.15);
+        \draw(xc,0)--(xc,-0.15);
+        
+        % x-axis labels
+        \node at(xa,-0.4){$x_{i-1}$};
+        \node at(xb,-0.4){$x_{i}$};
+        \node at(xc,-0.4){$x_{i+1}$};
+        
+        % plots evaluation points
+        \draw[black,fill=white,thick](xa,\fa)circle(0.08)node[above,xshift=-5,yshift=1]{$y_{i-1}$};
+        \draw[black,fill=white,thick](xb,\fb)circle(0.08)node[above,yshift=1]{$y_{i}$};
+        \draw[black,fill=white,thick](xc,\fc)circle(0.08)node[above,xshift=4,yshift=1]{$y_{i+1}$};
+        
+        % plots other points
+        \draw[black,fill=white,thick](1,{f(1)})circle(0.08);
+        \draw[black,fill=white,thick](2,{f(2)})circle(0.08);
+        \draw[black,fill=white,thick](3,{f(3)})circle(0.08);
+        \draw[black,fill=white,thick](7,{f(7)})circle(0.08);
+        \draw[black,fill=white,thick](8,{f(8)})circle(0.08);
+        \draw[black,fill=white,thick](9,{f(9)})circle(0.08);
+        
+    \end{tikzpicture}
+
+\end{document}

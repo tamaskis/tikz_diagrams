@@ -1,0 +1,55 @@
+% ---------
+% Preamble.
+% ---------
+
+% document type
+\documentclass{article}
+
+% import custom style
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% color theme (black, red, blue, green, orange, purple, gold)
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+        
+        % central body
+        \draw[fill=gray!20!white](0,0)circle(2)node[below,yshift=-10]{\textit{central body}};
+
+        % position vector
+        \draw[-mylatex',thick](0,0)--(2.93,2.93)node[pos=0.55,above,yshift=1]{$\boldsymbol{r}$};
+        
+        % center of central body
+        \draw[fill=black](0,0)circle(0.075);
+
+        % local vertical
+        \draw[dotted,thick](3,3)--(5,5)node[pos=0.5,below,rotate=45]{local vertical};
+        
+        % local horizontal
+        \draw[dotted,thick](5,1)--(1,5)node[pos=0.25,below,rotate=-45]{local horizontal};
+
+        % velocity vector
+        \draw[-mylatex',thick](3,3)--(2.5,5)node[pos=1,above]{$\boldsymbol{v}$};
+        
+        % satellite position
+        \draw[fill=shade_color](3,3)circle(0.1);
+        
+        % flight path angle
+        \tdplotdrawarc[-mylatex',color_theme]{(3,3)}{1.5}{135}{104.04}{above,xshift=-5,yshift=-3}{$\gamma$};
+
+        % zenith angle
+        \tdplotdrawarc[-mylatex']{(3,3)}{1.5}{45}{104.04}{above,xshift=4,yshift=-1}{$\beta$};
+        
+    \end{tikzpicture}
+
+\end{document}
