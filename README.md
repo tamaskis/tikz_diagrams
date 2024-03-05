@@ -26,7 +26,7 @@ This project has two main goals:
 
 1. [**TeX Live**](https://www.tug.org/texlive/). This will serve as our LaTeX compiler.
     - For macOS, I am using the [MacTeX distribution](https://www.tug.org/mactex/mactex-download.html).
-    - Once the installation is complete, close any terminal windows you have open and open a new terminal. This should ensure that the LaTeX distribution is added to your PATH environment variable (should be done automatically). This will be relevant when building a document using the [LaTeX Workshop VS Code extension](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) (see step 4 of the [Setup](#setup) section below).
+    - Once the installation is complete, close any terminal windows you have open and open a new terminal. This should ensure that the LaTeX distribution is added to your PATH environment variable (should be done automatically). This will be relevant when building a document using the [LaTeX Workshop VS Code extension](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) (see step 6 of the [Setup](#setup) section below).
     - If the above step does not work, restart your computer and try again.
 2. [**Visual Studio Code (VS Code)**](https://code.visualstudio.com/).
 3. [**Git**](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). Cloning the repository + revision control.
