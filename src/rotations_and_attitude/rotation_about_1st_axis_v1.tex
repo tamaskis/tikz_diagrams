@@ -6,13 +6,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -21,10 +21,10 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{60}{140}
 
-    % change rotation matrix to use 3-2-1 sequence
+    % Change rotation matrix to use 3-2-1 sequence.
     \tdseteulerxyz
 
     % -----------------
@@ -41,7 +41,7 @@
         \pgfmathsetmacro{\xRot}{20}
         
         % -------
-        % Origin.
+        % Origin..
         % -------
         
         \node[below]at(0,0,0){$O$};
@@ -64,7 +64,7 @@
         \node[]at(0,0,-1.9){};
         
         % -----------------------
-        % Oxyz coordinate system.
+        % Oxyz coordinate system..
         % -----------------------
         
         % xyz axes

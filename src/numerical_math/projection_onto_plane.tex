@@ -5,13 +5,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -20,7 +20,7 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{70}{110}
 
     % -----------------
@@ -32,7 +32,7 @@
         % plane
         \filldraw[draw=color_theme,fill=shade_color](0,0,0)--(0,2,0)--(2,2,0)--(2,0,0)--cycle;
         
-        % position vector
+        % Position vector.
         \draw[-mylatex',thick,/tiplen=0.3cm,color_theme](1.5,0.5,0)--(0.5,1.5,.75)node[anchor=west,xshift=-40,yshift=-15,color_theme]{$\mathbf{r}$};
         
         % angular momentum unit vector

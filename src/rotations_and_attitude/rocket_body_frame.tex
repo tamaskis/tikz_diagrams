@@ -6,13 +6,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -21,10 +21,10 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{90}{0}
 
-    % change rotation matrix to use 3-2-1 sequence
+    % Change rotation matrix to use 3-2-1 sequence.
     \tdseteulerxyz
 
     % -----------------
@@ -33,34 +33,34 @@
 
     \begin{tikzpicture}[tdplot_main_coords,scale=1]
 
-        % rocket drawing
+        % Rocket drawing.
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.6\textwidth]{../.images/rocket.eps}};
         
-        % rotation angles [deg]
+        % Rotation angles [deg].
         \pgfmathsetmacro{\zRot}{-30}
         \pgfmathsetmacro{\yRot}{-24.6}
         \pgfmathsetmacro{\xRot}{-25}
         
-        % scope to draw on top of rocket
+        % Scope to draw on top of rocket.
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             
-            % rotates TikZ's coordinate system to align with body frame
+            % Rotates TikZ's coordinate system to align with body frame.
             \tdplotsetrotatedcoords{\zRot}{\yRot}{\xRot}
             
-            % origin
+            % Origin.
             \pgfmathsetmacro{\Ox}{7.5}
             \pgfmathsetmacro{\Oy}{-0.41}
             \pgfmathsetmacro{\Oz}{0}
 
-            % axes length
+            % Axes length.
             \pgfmathsetmacro{\axlen}{3}
             
-            % body axes
+            % Body axes.
             \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Ox,\Oy,\Oz)--(\Ox+\axlen,\Oy,\Oz)node[pos=1.08]{$x_{b}$};
             \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Ox,\Oy,\Oz)--(\Ox,\Oy+\axlen,\Oz)node[pos=1.1]{$y_{b}$};
             \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Ox,\Oy,\Oz)--(\Ox,\Oy,\Oz-\axlen)node[pos=1.08]{$z_{b}$};
 
-            % center of mass
+            % Center of mass.
             \node[draw=none,shape=circle,fill,inner sep=1.75pt,color_theme,tdplot_rotated_coords](d1)at(\Ox,\Oy,\Oz){};
             \node[xshift=-9,yshift=-5,color_theme,tdplot_rotated_coords]at(\Ox,\Oy,\Oz){$\mathrm{cm}$};
 

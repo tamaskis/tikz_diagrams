@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -59,7 +59,7 @@
         % satellite orbit
         \draw[thick,dotted](0,0)circle(\rOrbit);
 
-        % origin
+        % Origin.
         \draw[color_theme,fill=color_theme](0,0)circle(0.05);
         
         % satellite
@@ -77,7 +77,7 @@
         % Sun position vector
         \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,orange](0,0)--(-5,0)node[pos=0.8,above]{$\boldsymbol{r}_{\odot}$};
         
-        % origin
+        % Origin.
         \draw[color_theme,fill=color_theme](0,0)circle(0.07);
 
     \end{tikzpicture}

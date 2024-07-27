@@ -200,13 +200,13 @@ This will delete both the `pdf_outputs/` and `eps_outputs/` folders (if they exi
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -235,7 +235,7 @@ This will delete both the `pdf_outputs/` and `eps_outputs/` folders (if they exi
 Many of the Ti*k*Z diagrams are set up to compatible with many color "themes". The choice of color theme is specified in each individual `.tex` file in the `src/` folder. For example,
 
 ```tex
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 ```
 

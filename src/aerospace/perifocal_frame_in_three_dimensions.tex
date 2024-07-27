@@ -6,13 +6,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -21,7 +21,7 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{70}{110}
 
     % -----------------
@@ -138,7 +138,7 @@
         \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(0,1.5,0)node[pos=1.03]{$\boldsymbol{\hat{J}}$};
         \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(0,0,1.5)node[pos=1.05]{$\boldsymbol{\hat{K}}$};
         
-        % position vector
+        % Position vector.
         \draw[-mylatex',/tiplen=0.3cm,thick](0,0,0)--(\rI,\rJ,\rK)node[pos=0.8,right]{$\boldsymbol{r}$};
 
         % P basis vector

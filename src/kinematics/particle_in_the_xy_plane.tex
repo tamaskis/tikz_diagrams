@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -27,10 +27,10 @@
         \draw(0,0)--(5,0)node[right]{$x$};
         \draw(0,0)--(0,5)node[above]{$y$};
         
-        % particle
+        % Particle.
         \draw[fill=black](3,3)circle(0.05)node[above,yshift=2]{$P$};
 
-        % position vector
+        % Position vector.
         \draw[-mylatex',thick,color_theme](0,0)--(2.965,2.965)node[pos=0.55,above,yshift=1]{$\boldsymbol{r}$};
         
     \end{tikzpicture}

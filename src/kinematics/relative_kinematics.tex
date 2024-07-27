@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -17,7 +17,7 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{70}{115}
 
     % -----------------
@@ -26,30 +26,30 @@
 
     \begin{tikzpicture}[tdplot_main_coords,scale=1]
         
-        % origin
+        % Origin.
         \node[xshift=1,yshift=-7]at(0,0){$O$};
 
         % A frame label
         \node[]at(0,-1,0){$\mathcal{A}$};
         
-        % particle P
+        % Particle. P
         \node[draw=none,shape=circle,fill,inner sep=1.75pt](d1)at(3,3,6){};
         \node[xshift=3,yshift=9]at(3,3,6){$P$};
 
-        % position vector for P
+        % Position vector. for P
         \draw[-mylatex',thick](0,0,0)--(2.95,2.95,5.9)node[pos=0.65,xshift=-7,yshift=5]{$\boldsymbol{r}_{P}$};
 
-        % particle Q
+        % Particle. Q
         \node[draw=none,shape=circle,fill,inner sep=1.75pt](d1)at(3,6,3){};
         \node[xshift=9]at(3,6,3){$Q$};
 
-        % position vector for Q
+        % Position vector. for Q
         \draw[-mylatex',thick](0,0,0)--(2.95,5.9,2.95)node[pos=0.6,yshift=-8]{$\boldsymbol{r}_{Q}$};
 
         % position of P relative to Q
         \draw[-mylatex',thick,color_theme](3,6,3)--(2.8,2.9,5.88)node[pos=0.55,xshift=15]{$\boldsymbol{r}_{P/Q}$};
         
-        % Oxyz coordinate system
+        % Oxyz coordinate system.
         \draw(0,0,0)--(5,0,0)node[pos=1.09]{$x$};
         \draw(0,0,0)--(0,5,0)node[pos=1.05]{$y$};
         \draw(0,0,0)--(0,0,5)node[pos=1.05]{$z$};

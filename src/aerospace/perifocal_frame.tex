@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -33,7 +33,7 @@
         % orbit trajectory
         \tdplotdrawarc[gray,dashed,thin]{(0,0)}{4.2426}{15}{75}{right,xshift=30,yshift=-50}{\textit{orbit trajectory}};
         
-        % position vector
+        % Position vector.
         \draw[-mylatex',thick](0,0)--(2.93,2.93)node[pos=0.55,above,yshift=1]{$\boldsymbol{r}$};
         
         % true anomaly

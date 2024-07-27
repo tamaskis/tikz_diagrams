@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -27,7 +27,7 @@
         \draw(0,0)--(5,0)node[right]{$x$};
         \draw(0,0)--(0,5)node[above]{$y$};
 
-        % origin label
+        % Origin. label
         \node[xshift=-5,yshift=-5]at(0,0){$O$};
 
         % radial distance
@@ -46,7 +46,7 @@
         \draw[dotted](1.7753,4.2247)--(2.4824,4.9319);
         \draw[dotted](3.7071,3.7071)--(2.4824,4.9319);
 
-        % particle
+        % Particle.
         \draw[fill=black](3,3)circle(0.05)node[right]{$P$};
         
         % angle

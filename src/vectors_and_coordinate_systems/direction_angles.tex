@@ -5,13 +5,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -20,7 +20,7 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{70}{115}
 
     % -----------------
@@ -30,10 +30,10 @@
     \begin{tikzpicture}[tdplot_main_coords,scale=1]
         
         % -----------------------
-        % Oxyz coordinate system.
+        % Oxyz coordinate system..
         % -----------------------
         
-        % origin
+        % Origin.
         \node[below,xshift=1]at(0,0){$O$};
         
         % axes

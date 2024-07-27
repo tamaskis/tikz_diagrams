@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -17,7 +17,7 @@
 
 \begin{document}
 
-    % sets viewing orientation (declination/rotation) of 3D coordinate system
+    % Sets viewing orientation (declination/rotation) of 3D coordinate system.
     \tdplotsetmaincoords{70}{115}
 
     % -----------------
@@ -26,22 +26,22 @@
 
     \begin{tikzpicture}[tdplot_main_coords,scale=1]
         
-        % origin
+        % Origin.
         \node[xshift=5,yshift=-7]at(0,0){$O$};
         
-        % frame labels
+        % Frame labels.
         \node[]at(0,-1,0){$\mathcal{A}$, \textcolor{color_theme}{$\mathcal{B}$}};
         
-        % angular velocity vector
+        % Angular velocity vector.
         \draw[-mylatex',thick,color_theme](0,0,0)--(4.5,4.5,4.5)node[pos=1.05,xshift=-5,yshift=5]{${}^{\mathcal{B}/\mathcal{A}}\boldsymbol{\omega}$};
             
-        % circular arrow representing rotation
+        % Circular arrow representing rotation.
         \tdplotsetrotatedcoords{45}{45}{0}
         \begin{scope}[tdplot_rotated_coords]
             \tdplotdrawarc[->,color_theme]{(-2,2.4,-1.2)}{0.25}{-180}{50}{below,xshift=5,yshift=-2}{};
         \end{scope}
             
-        % Oxyz coordinate system
+        % Oxyz coordinate system.
         \draw(0,0,0)--(5,0,0)node[pos=1.09]{$x$};
         \draw(0,0,0)--(0,5,0)node[pos=1.05]{$y$};
         \draw(0,0,0)--(0,0,5)node[pos=1.05]{$z$};

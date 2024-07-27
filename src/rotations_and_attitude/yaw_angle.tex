@@ -2,13 +2,13 @@
 % Preamble.
 % ---------
 
-% document type
+% Document type.
 \documentclass{article}
 
-% import custom style
+% Import custom style.
 \usepackage{../.preamble/tikz_diagrams_template}
 
-% color theme (black, red, blue, green, orange, purple, gold)
+% Color theme (black, red, blue, green, orange, purple, gold).
 \colortheme{blue}
 
 % ---------
@@ -33,14 +33,14 @@
         % Parameters.
         % -----------
         
-        % origin
+        % Origin.
         \pgfmathsetmacro{\Ox}{5.3}
         \pgfmathsetmacro{\Oy}{5.3}
 
         % pitch angle [deg]
         \pgfmathsetmacro{\yawangle}{30}
         
-        % axes length
+        % Axes length.
         \pgfmathsetmacro{\axlen}{5}
 
         % arc radius
@@ -58,7 +58,7 @@
         \pgfmathsetmacro{\ybx}{\Ox+cos(\yawangle)*\axlen}
         \pgfmathsetmacro{\yby}{\Oy-sin(\yawangle)*\axlen}
 
-        % body axes
+        % Body axes.
         \draw[line width=0.5mm](\Ox,\Oy)--(\xbx,\xby)node[pos=1.04]{$x_{b}$};
         \draw[line width=0.5mm](\Ox,\Oy)--(\ybx,\yby)node[pos=1.06]{$y_{b}$};
 
@@ -74,7 +74,7 @@
         \pgfmathsetmacro{\ywx}{\Ox+\axlen}
         \pgfmathsetmacro{\ywy}{\Oy}
 
-        % world axes
+        % World axes.
         \draw[dotted,line width=0.5mm](\Ox,\Oy)--(\xwx,\xwy)node[pos=1.04]{$x_{w}$};
         \draw[dotted,line width=0.5mm](\Ox,\Oy)--(\ywx,\ywy)node[pos=1.06]{$y_{w}$};
 
