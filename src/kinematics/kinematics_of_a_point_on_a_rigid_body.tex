@@ -57,9 +57,9 @@
             \pgfmathsetmacro{\Ozw}{-5}
             
             % World axes.
-            \draw[tdplot_rotated_coords,thick](\Oxw,\Oyw,\Ozw)--(\Oxw+\axlen,\Oyw,\Ozw)node[pos=1.1]{$x_{w}$};
-            \draw[tdplot_rotated_coords,thick](\Oxw,\Oyw,\Ozw)--(\Oxw,\Oyw+\axlen,\Ozw)node[pos=1.12]{$y_{w}$};
-            \draw[tdplot_rotated_coords,thick](\Oxw,\Oyw,\Ozw)--(\Oxw,\Oyw,\Ozw+\axlen)node[pos=1.08]{$z_{w}$};
+            \draw[tdplot_rotated_coords](\Oxw,\Oyw,\Ozw)--(\Oxw+\axlen,\Oyw,\Ozw)node[pos=1.1]{$x_{w}$};
+            \draw[tdplot_rotated_coords](\Oxw,\Oyw,\Ozw)--(\Oxw,\Oyw+\axlen,\Ozw)node[pos=1.12]{$y_{w}$};
+            \draw[tdplot_rotated_coords](\Oxw,\Oyw,\Ozw)--(\Oxw,\Oyw,\Ozw+\axlen)node[pos=1.08]{$z_{w}$};
 
         \end{scope}
         
@@ -80,16 +80,28 @@
             \pgfmathsetmacro{\Ozb}{0}
 
             % Body axes.
-            \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Oxb,\Oyb,\Ozb)--(\Oxb+\axlen,\Oyb,\Ozb)node[pos=1.08]{$x_{b}$};
-            \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Oxb,\Oyb,\Ozb)--(\Oxb,\Oyb+\axlen,\Ozb)node[pos=1.1]{$y_{b}$};
-            \draw[tdplot_rotated_coords,color_theme,line width=0.5mm](\Oxb,\Oyb,\Ozb)--(\Oxb,\Oyb,\Ozb-\axlen)node[pos=1.08]{$z_{b}$};
+            \draw[tdplot_rotated_coords](\Oxb,\Oyb,\Ozb)--(\Oxb+\axlen,\Oyb,\Ozb)node[pos=1.08]{$x_{b}$};
+            \draw[tdplot_rotated_coords](\Oxb,\Oyb,\Ozb)--(\Oxb,\Oyb+\axlen,\Ozb)node[pos=1.1]{$y_{b}$};
+            \draw[tdplot_rotated_coords](\Oxb,\Oyb,\Ozb)--(\Oxb,\Oyb,\Ozb-\axlen)node[pos=1.08]{$z_{b}$};
 
             % Angular velocity vector.
             \draw[tdplot_rotated_coords,-mylatex',thick,color_theme](\Oxb,\Oyb,\Ozb)--(\Oxb+3,\Oyb+2,\Ozb-1)node[pos=1.05,xshift=-5,yshift=5]{${}^{\mathcal{B}/\mathcal{A}}\boldsymbol{\omega}$};
 
             % Center of mass.
-            \node[draw=none,shape=circle,fill,inner sep=1.75pt,color_theme,tdplot_rotated_coords](d1)at(\Oxb,\Oyb,\Ozb){};
-            \node[xshift=-9,yshift=-5,color_theme,tdplot_rotated_coords]at(\Oxb,\Oyb,\Ozb){$\mathrm{cm}$};
+            \node[draw=none,shape=circle,fill,inner sep=1.25pt,color_theme,tdplot_rotated_coords](d1)at(\Oxb,\Oyb,\Ozb){};
+            \node[xshift=-3,yshift=13,color_theme,tdplot_rotated_coords]at(\Oxb,\Oyb,\Ozb){$\mathrm{cm}$};
+
+            % Point P coordinates.
+            \pgfmathsetmacro{\Px}{1}
+            \pgfmathsetmacro{\Py}{-0.21}
+            \pgfmathsetmacro{\Pz}{0}
+
+            % Point P.
+            \node[draw=none,shape=circle,fill,inner sep=1.25pt,color_theme,tdplot_rotated_coords](d1)at(\Px,\Py,\Pz){};
+            \node[xshift=0,yshift=13,color_theme,tdplot_rotated_coords]at(\Px,\Py,\Pz){$P$};
+
+            % Position vector of point P with respect to the center of mass.
+            \draw[tdplot_rotated_coords,-mylatex',thick,color_theme](\Oxb,\Oyb,\Ozb)--(\Px,\Py,\Pz)node[pos=1.05,xshift=-5,yshift=5]{$\boldsymbol{r}_{P/\mathrm{cm}}$};
 
         \end{scope}
 
