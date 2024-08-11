@@ -142,28 +142,28 @@ All `.tex` files creating diagrams are contained within the `src/` folder. Withi
 
     Like before, the PDF files will be saved to `pdf_outputs/`, while this time we also save EPS files to `eps_outputs/`.
 
-3. To export only the diagrams in `src/astrodynamics/`,
+3. To export only the diagrams in `src/aerospace/`,
 
     ```bash
-    ./export_diagrams.sh --folder astrodynamics
+    ./export_diagrams.sh --folder aerospace
     ```
 
     To also export them as EPS files,
 
     ```bash
-    ./export_diagrams.sh --folder astrodynamics --eps
+    ./export_diagrams.sh --folder aerospace --eps
     ```
 
-4. To only export the diagram defined by `src/astrodynamics/cylindrical_eclipse_model.tex`,
+4. To only export the diagram defined by `src/aerospace/cylindrical_eclipse_model.tex`,
 
     ```bash
-    ./export_diagrams.sh --file astrodynamics/cylindrical_eclipse_model.tex
+    ./export_diagrams.sh --file aerospace/cylindrical_eclipse_model.tex
     ```
 
     To also export it as an EPS file,
 
     ```bash
-    ./export_diagrams.sh --file astrodynamics/cylindrical_eclipse_model.tex --eps
+    ./export_diagrams.sh --file aerospace/cylindrical_eclipse_model.tex --eps
     ```
 
 ## Creating a single document with all generated diagrams

@@ -27,21 +27,21 @@
         % Parameters.
         % -----------
         
-        % constants
+        % Constants.
         \pgfmathsetmacro{\rBody}{2}                 % central body radius
         \pgfmathsetmacro{\rOrbit}{3}                % orbit radius
         \pgfmathsetmacro{\piConst}{3.14159}         % pi
-        \pgfmathsetmacro{\rSatCircle}{0.1}          % satellite marker size
+        \pgfmathsetmacro{\rSatCircle}{0.1}          % Satellite marker size.
         
-        % satellite position in perifocal frame
+        % Satellite position in the perifocal frame.
         \pgfmathsetmacro{\satX}{\rOrbit*cos(30)}
         \pgfmathsetmacro{\satY}{\rOrbit*sin(30)}
         
-        % perpendicular vector
+        % Perpendicular vector.
         \pgfmathsetmacro{\perpX}{\satX}
         \pgfmathsetmacro{\perpY}{\satY-\rSatCircle}
         
-        % satellite position vector
+        % Satellite position vector.
         \pgfmathsetmacro{\rSatX}{\satX-\rSatCircle*cos(30)}
         \pgfmathsetmacro{\rSatY}{\satY-\rSatCircle*sin(30)}
 
@@ -49,32 +49,32 @@
         % Drawing.
         % --------
         
-        % shadow
+        % Shadow.
         \fill[gray!20](0,-\rBody)rectangle(2.5*\rBody,\rBody);
         
-        % Earth
+        % Earth.
         \draw[thick,fill=white](0,0)circle(\rBody);
         \draw[-mylatex',/tiplen=0.3cm](0,0)--(-1.41421,1.41421)node[pos=0.5,fill=white]{$R$};
         
-        % satellite orbit
+        % Satellite orbit.
         \draw[thick,dotted](0,0)circle(\rOrbit);
 
         % Origin.
         \draw[color_theme,fill=color_theme](0,0)circle(0.05);
         
-        % satellite
+        % Satellite.
         \draw[black,fill=white](\satX,\satY)circle(\rSatCircle)node[black,above right]{satellite};
         
-        % satellite position vector
+        % Satellite position vector.
         \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](0,0)--(\rSatX,\rSatY)node[pos=0.8,above]{$\boldsymbol{r}$};
         
-        % parallel vector
+        % Parallel vector.
         \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](0,0)--(\satX,0)node[midway,below=1]{$\boldsymbol{r}_{\parallel}$};
         
-        % perpendicular vector
+        % Perpendicular vector.
         \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,color_theme](\satX,0)--(\satX,\satY-\rSatCircle)node[midway,xshift=-8]{$\boldsymbol{r}_{\perp}$};
         
-        % Sun position vector
+        % Sun position vector.
         \draw[-mylatex',/tiplen=0.3cm,line width=0.5mm,orange](0,0)--(-5,0)node[pos=0.8,above]{$\boldsymbol{r}_{\odot}$};
         
         % Origin.

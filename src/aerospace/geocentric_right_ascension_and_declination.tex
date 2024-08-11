@@ -42,7 +42,7 @@
         \pgfmathsetmacro{\dec}{50};
         \pgfmathsetmacro{\ra}{70};
         
-        % satellite position (assuming distance of 1.25, right ascension of 70 deg, and declination of 50 deg --> calculated manually to avoid LaTeX's "Dimension too large." error)
+        % Satellite position (assuming distance of 1.25, right ascension of 70 deg, and declination of 50 deg --> calculated manually to avoid LaTeX's "Dimension too large." error).
         \pgfmathsetmacro{\rI}{0.274808};
         \pgfmathsetmacro{\rJ}{0.755028};
         \pgfmathsetmacro{\rK}{0.957556};
@@ -99,10 +99,10 @@
         \tdplotdefinepoints(0,0,0)(0.9*\xline,0.9*\yline,0)(0.9*\rI,0.9*\rJ,0.9*\rK)
         \tdplotdrawpolytopearc[-mylatex',/tiplen=0.2cm,color_theme]{0.9*\x}{anchor=west,color_theme}{$\delta$}
         
-        % satellite position vector
+        % Satellite position vector.
         \draw[-mylatex',thick](0,0,0)--(\rI,\rJ,\rK)node[pos=0.75,yshift=8]{$\mathbf{r}$};
         
-        % satellite position marker
+        % Satellite position marker.
         \draw[thick,black,fill=white](\rI,\rJ,\rK)circle(0.15ex)node[right,xshift=2,yshift=1]{satellite};
         
         % portions of basis vectors outside of sphere

@@ -1,0 +1,73 @@
+% ---------
+% Preamble.
+% ---------
+
+% Document type.
+\documentclass{article}
+
+% Import custom style.
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% Color theme (black, red, blue, green, orange, purple, gold).
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % Specified parameters.
+        \pgfmathsetmacro{\radiusOcc}{2}                         % Occulting body radius.
+        \pgfmathsetmacro{\radiusObserver}{0.1}                  % Observer radius.
+        \pgfmathsetmacro{\radiusTarget}{0.05}                   % Target radius.
+        \pgfmathsetmacro{\observerAngularPos}{190}              % Observer angular position (polar coordinates) [deg].
+        \pgfmathsetmacro{\observerRadialPos}{2*\radiusOcc}    % Observer radial position (polar coordinates).
+        \pgfmathsetmacro{\visTargetAngularPos}{300}             % Visible target angular position (polar coordinates) [deg].
+        \pgfmathsetmacro{\visTargetRadialPos}{1.75*\radiusOcc}  % Visible target radial position (polar coordinates).
+        \pgfmathsetmacro{\occTargetAngularPos}{30}              % Occulted target angular position (polar coordinates) [deg].
+        \pgfmathsetmacro{\occTargetRadialPos}{1.25*\radiusOcc}  % Occulted target radial position (polar coordinates).
+
+        % Derived parameters.
+        \pgfmathsetmacro{\xObserver}{\observerRadialPos*cos(\observerAngularPos)}       % x-position of observer.
+        \pgfmathsetmacro{\yObserver}{\observerRadialPos*sin(\observerAngularPos)}       % y-position of observer.
+        \pgfmathsetmacro{\xVisTarget}{\visTargetRadialPos*cos(\visTargetAngularPos)}    % x-position of visible target.
+        \pgfmathsetmacro{\yVisTarget}{\visTargetRadialPos*sin(\visTargetAngularPos)}    % y-position of visible target.
+        \pgfmathsetmacro{\xOccTarget}{\visTargetRadialPos*cos(\occTargetAngularPos)}    % x-position of occulted target.
+        \pgfmathsetmacro{\yOccTarget}{\visTargetRadialPos*sin(\occTargetAngularPos)}    % y-position of occulted target.
+
+        % --------
+        % Drawing.
+        % --------
+        
+        % Line of sight to visible target.
+        \draw[color_theme](\xObserver,\yObserver)--(\xVisTarget,\yVisTarget)node[pos=0.5,rotate=-22.25,below]{line of sight};
+
+        % Line of sight to occulted target.
+        \draw[thick,dotted](\xObserver,\yObserver)--(\xOccTarget,\yOccTarget);
+
+        % Occulting body.
+        \draw[thick,fill=white](0,0)circle(\radiusOcc)node{\textit{occulting body}};
+        
+        % Observer.
+        \draw[thick,fill=white](\xObserver,\yObserver)circle(\radiusObserver)node[left,xshift=-2,yshift=1]{observer};
+
+        % Visible target.
+        \draw[thick,fill=black](\xVisTarget,\yVisTarget)circle(\radiusTarget)node[right,xshift=1,yshift=1]{visible target};
+
+        % Occulted target.
+        \draw[thick,fill=black](\xOccTarget,\yOccTarget)circle(\radiusTarget)node[right,xshift=1,yshift=1]{occulted target};
+
+    \end{tikzpicture}
+
+\end{document}

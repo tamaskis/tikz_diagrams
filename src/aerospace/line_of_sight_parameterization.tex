@@ -1,0 +1,86 @@
+% ---------
+% Preamble.
+% ---------
+
+% Document type.
+\documentclass{article}
+
+% Import custom style.
+\usepackage{../.preamble/tikz_diagrams_template}
+
+% Color theme (black, red, blue, green, orange, purple, gold).
+\colortheme{blue}
+
+% ---------
+% Document.
+% ---------
+
+\begin{document}
+
+    % -----------------
+    % TikZ environment.
+    % -----------------
+
+    \begin{tikzpicture}
+
+        % -----------
+        % Parameters.
+        % -----------
+        
+        % Specified parameters.
+        \pgfmathsetmacro{\radiusOcc}{2}                         % Occulting body radius.
+        \pgfmathsetmacro{\radiusObserver}{0.1}                  % Observer radius.
+        \pgfmathsetmacro{\radiusTarget}{0.05}                   % Target radius.
+        \pgfmathsetmacro{\radiusLinePoint}{0.05}                % TODO.
+        \pgfmathsetmacro{\observerAngularPos}{190}              % Observer angular position (polar coordinates) [deg].
+        \pgfmathsetmacro{\observerRadialPos}{2*\radiusOcc}      % Observer radial position (polar coordinates).
+        \pgfmathsetmacro{\targetAngularPos}{300}                % Target angular position (polar coordinates) [deg].
+        \pgfmathsetmacro{\targetRadialPos}{1.75*\radiusOcc}     % Target radial position (polar coordinates).
+        \pgfmathsetmacro{\tLine}{0.25}                          % TODO.
+
+        % Derived parameters.
+        \pgfmathsetmacro{\xObserver}{\observerRadialPos*cos(\observerAngularPos)}                   % x-position of observer.
+        \pgfmathsetmacro{\yObserver}{\observerRadialPos*sin(\observerAngularPos)}                   % y-position of observer.
+        \pgfmathsetmacro{\xObsVec}{(\observerRadialPos-\radiusObserver)*cos(\observerAngularPos)}   % x-position of observer position vector end.
+        \pgfmathsetmacro{\yObsVec}{(\observerRadialPos-\radiusObserver)*sin(\observerAngularPos)}   % y-position of observer position vector end.
+        \pgfmathsetmacro{\xTarget}{\targetRadialPos*cos(\targetAngularPos)}                         % x-position of target.
+        \pgfmathsetmacro{\yTarget}{\targetRadialPos*sin(\targetAngularPos)}                         % y-position of target.
+        \pgfmathsetmacro{\xTarVec}{(\targetRadialPos-\radiusTarget)*cos(\targetAngularPos)}         % x-position of target position vector end.
+        \pgfmathsetmacro{\yTarVec}{(\targetRadialPos-\radiusTarget)*sin(\targetAngularPos)}         % y-position of target position vector end.
+        \pgfmathsetmacro{\xLine}{\xObserver+(\xTarget-\xObserver)*\tLine}                           % TODO.
+        \pgfmathsetmacro{\yLine}{\yObserver+(\yTarget-\yObserver)*\tLine}                           % TODO.
+
+        % --------
+        % Drawing.
+        % --------
+        
+        % Line of sight.
+        \draw[color_theme,dotted,thick](\xObserver,\yObserver)--(\xTarget,\yTarget);
+
+        % Occulting body.
+        \draw(0,0)circle(\radiusOcc);
+
+        % Origin.
+        \fill(0,0)circle(0.05);
+        
+        % Observer.
+        \draw[thick,fill=white](\xObserver,\yObserver)circle(\radiusObserver)node[left,xshift=-2,yshift=1]{observer};
+           
+        % Observer position vector.
+        \draw[-mylatex',thick](0,0)--(\xObsVec,\yObsVec)node[pos=0.8,above]{$\boldsymbol{r}$};
+
+        % Target position vector.
+        \draw[-mylatex',thick](0,0)--(\xTarget,\yTarget)node[pos=0.7,right]{$\boldsymbol{s}$};
+
+        % Target.
+        \draw[thick,fill=black](\xTarget,\yTarget)circle(\radiusTarget)node[right]{target};
+
+        % TODO
+        \fill[color_theme](\xLine,\yLine)circle(\radiusLinePoint);
+
+        % TODO.
+        \draw[-mylatex',blue,color_theme,thick](0,0)--(\xLine,\yLine)node[pos=0.5,below,yshift=2]{$\boldsymbol{\ell}$};
+
+    \end{tikzpicture}
+
+\end{document}
